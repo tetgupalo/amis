@@ -14,25 +14,25 @@ VALUES('driver', 'Drive a car. Can be personal driver.');
 
 -- INSERT USER
 INSERT INTO "USER" ("ROLE", "EMAIL","LOGIN","PASSWORD","DRIVER_LICENCE","NUMBER_DRIVER_LICENCE", "FIRSTNAME", "LASTNAME","PHONE_NUMBER","BIRTHDAY", "RATING")
-VALUES ('user', 'user_1@gmail.com', 'user_1', 'passss_1', TO_DATE('2014/05/02','yyyy/mm/dd'),'¿¿¿ 111000', 'Firstname1', 'Lastname1', '+ 38(050) 6232 567', TO_DATE('1991/05/11','yyyy/mm/dd'), 85);
+VALUES ('user', 'user_1@gmail.com', 'user_1', 'passss_1', TO_DATE('2014/05/02','yyyy/mm/dd'),'–ê–ê–ê 111000', 'Firstname1', 'Lastname1', '+ 38(050) 6232 567', TO_DATE('1991/05/11','yyyy/mm/dd'), 85);
 
 
 -- INSERT USER
 INSERT INTO "USER" ("ROLE", "EMAIL","LOGIN","PASSWORD","DRIVER_LICENCE","NUMBER_DRIVER_LICENCE", "FIRSTNAME", "LASTNAME","PHONE_NUMBER","BIRTHDAY", "RATING")
-VALUES ('user', 'us2er_1@gmail.com', 'user_2', 'passss_2', TO_DATE('2016/06/01','yyyy/mm/dd'),'¿¿¿ 111666', 'Firstname2', 'Lastname2', '+ 38(050) 1234 567', TO_DATE('1990/05/01','yyyy/mm/dd'), 75);
+VALUES ('user', 'us2er_1@gmail.com', 'user_2', 'passss_2', TO_DATE('2016/06/01','yyyy/mm/dd'),'–ê–í–í 111666', 'Firstname2', 'Lastname2', '+ 38(050) 1234 567', TO_DATE('1990/05/01','yyyy/mm/dd'), 75);
 
 -- INSERT LESSOR
 INSERT INTO "USER" ("ROLE", "EMAIL","LOGIN","PASSWORD","DRIVER_LICENCE","NUMBER_DRIVER_LICENCE", "FIRSTNAME", "LASTNAME","PHONE_NUMBER","BIRTHDAY", "RATING")
-VALUES ('lessor', 'lessor_1@gmail.com', 'lessor_1', 'lessor_pass_1', TO_DATE('2011/04/02','yyyy/mm/dd'), '¬¬¬ 123456', 'Lessor_firstname_1', 'Lessor_lastname_1', '+ 38(050) 1434 567', TO_DATE('1980/11/22','yyyy/mm/dd'), 70);  
+VALUES ('lessor', 'lessor_1@gmail.com', 'lessor_1', 'lessor_pass_1', TO_DATE('2011/04/02','yyyy/mm/dd'), '–í–í–í 123456', 'Lessor_firstname_1', 'Lessor_lastname_1', '+ 38(050) 1434 567', TO_DATE('1980/11/22','yyyy/mm/dd'), 70);  
 
 -- INSERT Admin
 INSERT INTO "USER" ("ROLE", "EMAIL","LOGIN","PASSWORD","DRIVER_LICENCE","NUMBER_DRIVER_LICENCE", "FIRSTNAME", "LASTNAME","PHONE_NUMBER","BIRTHDAY", "RATING")
-VALUES ('admin', 'admin_1@gmail.com', 'admin_1', 'admin_pass_1', TO_DATE('2011/04/02','yyyy/mm/dd'), '——— 123456', 'Admin_firstname_1', 'Admin_lastname_1', '+ 38(050) 1434 563', TO_DATE('1987/12/22','yyyy/mm/dd'), 100);  
+VALUES ('admin', 'admin_1@gmail.com', 'admin_1', 'admin_pass_1', TO_DATE('2011/04/02','yyyy/mm/dd'), '–°–°–° 123456', 'Admin_firstname_1', 'Admin_lastname_1', '+ 38(050) 1434 563', TO_DATE('1987/12/22','yyyy/mm/dd'), 100);  
 
 
 -- INSERT Driver
 INSERT INTO "USER" ("ROLE", "EMAIL","LOGIN","PASSWORD","DRIVER_LICENCE","NUMBER_DRIVER_LICENCE", "FIRSTNAME", "LASTNAME","PHONE_NUMBER","BIRTHDAY", "RATING")
-VALUES ('driver', 'driver_1@gmail.com', 'driver_1', 'driver_pass_1', TO_DATE('2014/04/02','yyyy/mm/dd'), '¬‘¬ 123456', 'Driver_firstname_1', 'Driver_lastname_1', '+ 38(050) 2434 563', TO_DATE('1988/12/02','yyyy/mm/dd'), 50);  
+VALUES ('driver', 'driver_1@gmail.com', 'driver_1', 'driver_pass_1', TO_DATE('2014/04/02','yyyy/mm/dd'), '–°–•–• 123456', 'Driver_firstname_1', 'Driver_lastname_1', '+ 38(050) 2434 563', TO_DATE('1988/12/02','yyyy/mm/dd'), 50);  
 
 
 

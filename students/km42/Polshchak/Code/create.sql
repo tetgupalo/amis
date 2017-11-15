@@ -226,19 +226,19 @@ ALTER TABLE "User"
 
 ALTER TABLE "User"
 	ADD CONSTRAINT user_check_s_name_regexp
-	CHECK ( REGEXP_LIKE (first_name, '^[A-ZА-ЯІЇЄ][a-zа-яіїє-]+($|\s)', 'c'));
+	CHECK ( REGEXP_LIKE (second_name, '^[A-ZА-ЯІЇЄ][a-zа-яіїє-]+($|\s)', 'c'));
 	
 ALTER TABLE "User"
 	ADD CONSTRAINT user_check_s_name_len
-	CHECK (length(first_name) <= 256);
+	CHECK (length(second_name) <= 256);
 	
 ALTER TABLE "User"
 	ADD CONSTRAINT user_check_l_name_regexp
-	CHECK ( REGEXP_LIKE (first_name, '^[A-ZА-ЯІЇЄ][a-zа-яіїє-]+($|\s)', 'c'));
+	CHECK ( REGEXP_LIKE (last_name, '^[A-ZА-ЯІЇЄ][a-zа-яіїє-]+($|\s)', 'c'));
 	
 ALTER TABLE "User"
 	ADD CONSTRAINT user_check_l_name_len
-	CHECK (length(first_name) <= 256);
+	CHECK (length(last_name) <= 256);
 	
 ALTER TABLE "User"
 	ADD CONSTRAINT user_check_birthday

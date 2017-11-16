@@ -77,7 +77,11 @@ create table "Structure_and_keyword"
    "id_key_word"        INTEGER,
    "id_structure"       INTEGER
 );
+ALTER TABLE "Program_language"
+ADD CONSTRAINT constraint_name UNIQUE ("name_lang");
 
+ALTER TABLE "Language_compilator"
+ADD CONSTRAINT constraint_name UNIQUE ("path_to_compilator");
 alter table "Key_word"
    add constraint FK_KEY_WORD_REFERENCE_PROGRAM_ foreign key ("id_lang")
       references "Program_language" ("id_lang");

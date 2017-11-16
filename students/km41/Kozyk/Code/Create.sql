@@ -250,69 +250,99 @@ alter table "User"
 ALTER TABLE ROLE
   ADD CONSTRAINT check_role
   CHECK ( REGEXP_LIKE (role_name, '^[A-Za-z]+($|\s)'));
+  
 ALTER TABLE ROLE
   ADD CONSTRAINT check_role_len
   CHECK (length(role_name) > 2 and length(role_name) <= 20);
+  
 ALTER TABLE ROLE
   ADD CONSTRAINT check_role_description
   CHECK ( REGEXP_LIKE (role_description, '^[A-Za-zА-ЯІЇЄа-яієї,]+($|\s)'));
+  
 ALTER TABLE ROLE
   ADD CONSTRAINT check_role__desc_len
   CHECK (length(role_description) > 5 and length(role_description) <= 200);
 /*==============================================================*/
 /* For: User                                            */
 /*==============================================================*/
+ALTER TABLE "User"
+  ADD CONSTRAINT unique_id_code
+  UNIQUE (ID_CODE);
+
+ALTER TABLE "User"
+  ADD CONSTRAINT unique_phone_number
+  UNIQUE (PHONE_NUMBER);  
+  
  ALTER TABLE "User"
   ADD CONSTRAINT check_email
   CHECK ( REGEXP_LIKE (email, '^[A-Za-z!#$%&*+-=?^_`{|}~\.0-9]+@[a-z-.]+\.[a-z]{2,15}($|\s)'));
+  
 ALTER TABLE "User"
   ADD CONSTRAINT check_name
   CHECK ( REGEXP_LIKE (name, '^[A-ZА-ЯІЇЄ][a-zа-яіїє-]+($|\s)', 'c'));
+  
  ALTER TABLE "User"
   ADD CONSTRAINT check_name_len
   CHECK (length(name) < 20); 
+  
 ALTER TABLE "User"
   ADD CONSTRAINT check_password
   CHECK ( REGEXP_LIKE (password, '^[A-Za-z!#$%&*+-=?^_`{|}~\.0-9@]+($|\s)'));
+  
 ALTER TABLE "User"
   ADD CONSTRAINT check_password_len
   CHECK ((length(password) < 25) and (length(password) > 6)); 
+  
 ALTER TABLE "User"
   ADD CONSTRAINT check_phone_number
   CHECK ( REGEXP_LIKE (phone_number, '^[0-9]{10}($|\s)'));
+  
 ALTER TABLE "User"
   ADD CONSTRAINT check_id_code
   CHECK ( REGEXP_LIKE (id_code, '^[0-9]{5,10}($|\s)'));
 /*==============================================================*/
 /* For: apartment                                             */
 /*==============================================================*/
+ALTER TABLE FACILITY
+  ADD CONSTRAINT unique_name_adress
+  UNIQUE (FACILITY_NAME, FACILITY_ADRESS);
+
  ALTER TABLE FACILITY
   ADD CONSTRAINT check_facility_name
   CHECK ( REGEXP_LIKE (facility_name, '^[A-ZА-ЯІЇЄ][а-яіїєa-z -0-9]+($|\s)', 'c'));
+  
 ALTER TABLE FACILITY
   ADD CONSTRAINT check_facility_name_len
   CHECK (length(facility_name) < 30);
+  
  ALTER TABLE FACILITY
   ADD CONSTRAINT check_facility_adress
   CHECK ( REGEXP_LIKE (facility_adress, '^[A-ZА-ЯІЄЇ][а-яіїє,a-z .-0-9]+($|\s)', 'c'));
+  
  ALTER TABLE FACILITY
   ADD CONSTRAINT check_facility_adress_len
   CHECK (length(facility_adress) < 50);
+  
  ALTER TABLE FACILITY
   ADD CONSTRAINT check_date_end
   CHECK (date_end >= date_start);
+  
  ALTER TABLE FACILITY
   ADD CONSTRAINT check_amount_tickets
   CHECK ( REGEXP_LIKE (amount_of_tickets, '^[0-9]{1,5}($|\s)'));
+  
 ALTER TABLE FACILITY
   ADD CONSTRAINT check_amount_tickets_len
   CHECK (amount_of_tickets < 99999);
+  
  ALTER TABLE FACILITY
   ADD CONSTRAINT check_facility_price
   CHECK ( REGEXP_LIKE (facility_price, '^[0-9]{1,6}.[0-9]{1,2}($|\s)'));
+  
  ALTER TABLE FACILITY
   ADD CONSTRAINT check_facility_description
   CHECK ( REGEXP_LIKE (facility_description, '^[A-ZА-ЯІЇЄ][a-zа-яіїє,:"?! .-0-9]+($|\s)'));
+  
 ALTER TABLE FACILITY
   ADD CONSTRAINT check_facility_description_len
   CHECK ((length(facility_description) > 5) and (length(facility_description) < 600));
@@ -322,24 +352,31 @@ ALTER TABLE FACILITY
  ALTER TABLE APARTMENT
   ADD CONSTRAINT check_apartment_adress
   CHECK ( REGEXP_LIKE (adress, '^[A-ZА-ЯІЄЇ][а-яіїє,a-z .-0-9]+($|\s)', 'c'));
+  
  ALTER TABLE APARTMENT
   ADD CONSTRAINT check_apartment_adress_len
   CHECK (length(adress) <= 50);
+  
  ALTER TABLE APARTMENT
   ADD CONSTRAINT check_apartment_price
   CHECK ( REGEXP_LIKE (apartment_price, '^[0-9]{1,6}.[0-9]{1,2}($|\s)'));
+  
  ALTER TABLE APARTMENT
   ADD CONSTRAINT check_apartment_description
   CHECK ( REGEXP_LIKE (apartment_description, '^[A-ZА-ЯІЇЄ][а-яіїє,?!=+a-z .-0-9]+($|\s)'));
+  
  ALTER TABLE APARTMENT
   ADD CONSTRAINT check_apartment_desc_len
   CHECK ((length(apartment_description) > 5) and (length(apartment_description) < 600));
+  
  ALTER TABLE APARTMENT
   ADD CONSTRAINT check_dwellers
   CHECK ( REGEXP_LIKE (max_amount_dwellers, '^[0-9]{1,2}($|\s)'));
+  
  ALTER TABLE APARTMENT
   ADD CONSTRAINT check_add_number
   CHECK ( REGEXP_LIKE (additional_number, '^[0-9]+($|\s)'));
+  
  ALTER TABLE APARTMENT
   ADD CONSTRAINT check_add_number_len
   CHECK (additional_number <= 10);
@@ -349,6 +386,7 @@ ALTER TABLE FACILITY
  ALTER TABLE BOOKAPARTMENTS
   ADD CONSTRAINT check_book_end
   CHECK (booking_end >= booking_date);
+  
  ALTER TABLE BOOKAPARTMENTS
   ADD CONSTRAINT check_book_end_oper
   CHECK (booking_date >= operation_date);

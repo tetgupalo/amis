@@ -117,3 +117,55 @@ alter table "USER"
 alter table "USER"
   add constraint check_login 
   check (REGEXP_LIKE (user_login,'[A-Za-z1-9_]{1,30}','i'));  
+
+alter table "USER"
+   ADD CONSTRAINT valid_unique UNIQUE ("user_id");
+
+  alter table "USER"
+   ADD CONSTRAINT valid_unique UNIQUE ("user_email");
+
+alter table "USER"
+   ADD CONSTRAINT check_password
+   CHECK ( REGEXP_LIKE ("user_password", '[A-Za-z 0-9.,!#$%^&*_]{6,20}'));    
+
+ alter table "User"
+  ADD CONSTRAINT check_password_lenght
+  CHECK(length("user_password")>6 and length("user_password")<20);
+
+
+ alter table "User"
+   ADD CONSTRAINT check_firstname
+   CHECK ( REGEXP_LIKE ("user_firstname", '[A-Za-z ,-]{5,25}')); 
+ 
+alter table "User"
+   ADD CONSTRAINT check_lastname
+   CHECK ( REGEXP_LIKE ("user_lastname", '[A-Za-z ,-]{5,25}')); 
+
+alter table "Phone"
+   ADD CONSTRAINT valid_unique UNIQUE ("phone_id");
+
+
+alter table "Order"
+   ADD CONSTRAINT valid_unique UNIQUE ("order_id");
+
+alter table "Roles"
+   ADD CONSTRAINT check_role
+   CHECK ( REGEXP_LIKE ("role_name", '[A-Za-z]{3,5}'));   
+ 
+alter table "Roles"
+  ADD CONSTRAINT check_role_lenght
+  CHECK(length("role_name")>2 and length("role_name")<8);  
+
+alter table "User"
+  ADD CONSTRAINT check_firstname_lenght
+  CHECK(length("user_firstname")>4 and length("user_firstname")<26);
+    
+alter table "User"
+  ADD CONSTRAINT check_lastname_lenght
+  CHECK(length("user_lastname")>4 and length("user_lastname")<26);  
+
+
+
+
+
+

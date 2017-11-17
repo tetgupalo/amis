@@ -143,7 +143,7 @@ alter table "User"
    
 alter table "User"
   ADD CONSTRAINT check_password_lenght
-  CHECK(length("user_password")>6 and length("user_password")<20);
+  CHECK(length("user_password")>5 and length("user_password")<21);
 
 alter table "User"
   ADD CONSTRAINT check_cardnumber_lenght
@@ -163,15 +163,15 @@ alter table "Roles"
  
 alter table "Roles"
   ADD CONSTRAINT check_role_lenght
-  CHECK(length("role_name")>4 and length("role_name")<7);       
+  CHECK(length("role_name")>3 and length("role_name")<8);       
 
 alter table "User"
   ADD CONSTRAINT check_firstname_lenght
-  CHECK(length("user_firstname")>1 and length("user_firstname")<20);
+  CHECK(length("user_firstname")>0 and length("user_firstname")<21);
     
 alter table "User"
   ADD CONSTRAINT check_lastname_lenght
-  CHECK(length("user_lastname")>1 and length("user_lastname")<20);       
+  CHECK(length("user_lastname")>0 and length("user_lastname")<21);       
         
 alter table "User"
    ADD CONSTRAINT checking_user_adress
@@ -179,5 +179,5 @@ alter table "User"
  
 alter table "User"
   ADD CONSTRAINT check_ruser_adress
-  CHECK(length("user_adress")>10 and length("user_adress")<100);         
+  CHECK(length("user_adress")>9 and length("user_adress")<101);         
    

@@ -128,3 +128,56 @@ alter table "User"
    add constraint "FK_USER_USERS HAV_ROLES" foreign key ("role_name")
       references "Roles" ("role_name");
 
+alter table "User"
+   ADD CONSTRAINT valid_unique UNIQUE ("user_email");
+   
+alter table "User"
+   ADD CONSTRAINT valid_unique UNIQUE ("user_cardnumber")   
+   
+alter table "OrderItem"
+   ADD CONSTRAINT valid_unique UNIQUE ("order_id");
+   
+alter table "User"
+   ADD CONSTRAINT checking_password
+   CHECK ( REGEXP_LIKE ("user_password", '[A-Za-z 0-9.,!#$%^&*_]{6,20}'));   
+   
+alter table "User"
+  ADD CONSTRAINT check_password_lenght
+  CHECK(length("user_password")>6 and length("user_password")<20);
+
+alter table "User"
+  ADD CONSTRAINT check_cardnumber_lenght
+  CHECK(length("user_cardnumber")=12;
+ 
+alter table "User"
+   ADD CONSTRAINT checking_firstname
+   CHECK ( REGEXP_LIKE ("user_firstname", '[A-Za-z ,-]{1,20}')); 
+ 
+alter table "User"
+   ADD CONSTRAINT checking_lastname
+   CHECK ( REGEXP_LIKE ("user_lastname", '[A-Za-z ,-]{1,20}')); 
+
+alter table "Roles"
+   ADD CONSTRAINT checking_role
+   CHECK ( REGEXP_LIKE ("role_name", '[A-Za-z]{4,7}'));   
+ 
+alter table "Roles"
+  ADD CONSTRAINT check_role_lenght
+  CHECK(length("role_name")>4 and length("role_name")<7);       
+
+alter table "User"
+  ADD CONSTRAINT check_firstname_lenght
+  CHECK(length("user_firstname")>1 and length("user_firstname")<20);
+    
+alter table "User"
+  ADD CONSTRAINT check_lastname_lenght
+  CHECK(length("user_lastname")>1 and length("user_lastname")<20);       
+        
+alter table "User"
+   ADD CONSTRAINT checking_user_adress
+   CHECK ( REGEXP_LIKE ("user_adress", '[A-Za-z 0-9.,-]{10, 100}'));   
+ 
+alter table "User"
+  ADD CONSTRAINT check_ruser_adress
+  CHECK(length("user_adress")>10 and length("user_adress")<100);         
+   

@@ -37,7 +37,7 @@ drop table "User" cascade constraints;
 /*==============================================================*/
 create table "Order" 
 (
-   "user_email"         VARCHAR2(20)         not null,
+   "user_email"         VARCHAR2(50)         not null,
    "order_date"         DATE                 not null,
    "order_id"           VARCHAR2(10)         not null,
    constraint PK_ORDER primary key ("user_email", "order_id")
@@ -56,10 +56,9 @@ create index "users have orders_FK" on "Order" (
 create table "OrderItem" 
 (
    "ticket_type"        VARCHAR2(30)         not null,
-   "user_email"         VARCHAR2(20)         not null,
+   "user_email"         VARCHAR2(50)         not null,
    "order_id"           VARCHAR2(10)         not null,
    "tickets_quantity"   NUMBER               not null,
-   constraint PK_ORDERITEM primary key ("user_email", "order_id")
 );
 
 /*==============================================================*/
@@ -95,7 +94,7 @@ create table "Ticket"
 /*==============================================================*/
 create table "User" 
 (
-   "user_email"         VARCHAR2(20)         not null,
+   "user_email"         VARCHAR2(50)         not null,
    "role_name"          VARCHAR2(30)         not null,
    "user_password"      VARCHAR2(20)         not null,
    "user_firstname"     VARCHAR2(20)         not null,
@@ -132,10 +131,7 @@ alter table "User"
    ADD CONSTRAINT valid_unique UNIQUE ("user_email");
    
 alter table "User"
-   ADD CONSTRAINT valid_unique UNIQUE ("user_cardnumber")   
-   
-alter table "OrderItem"
-   ADD CONSTRAINT valid_unique UNIQUE ("order_id");
+   ADD CONSTRAINT valid_unique UNIQUE ("user_cardnumber");   
    
 alter table "User"
    ADD CONSTRAINT checking_password
@@ -147,7 +143,7 @@ alter table "User"
 
 alter table "User"
   ADD CONSTRAINT check_cardnumber_lenght
-  CHECK(length("user_cardnumber")=12;
+  CHECK(length("user_cardnumber")=12);
  
 alter table "User"
    ADD CONSTRAINT checking_firstname
@@ -171,13 +167,5 @@ alter table "User"
     
 alter table "User"
   ADD CONSTRAINT check_lastname_lenght
-  CHECK(length("user_lastname")>0 and length("user_lastname")<21);       
-        
-alter table "User"
-   ADD CONSTRAINT checking_user_adress
-   CHECK ( REGEXP_LIKE ("user_adress", '[A-Za-z 0-9.,-]{10, 100}'));   
- 
-alter table "User"
-  ADD CONSTRAINT check_ruser_adress
-  CHECK(length("user_adress")>9 and length("user_adress")<101);         
+  CHECK(length("user_lastname")>0 and length("user_lastname")<21);    
    

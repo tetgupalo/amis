@@ -4,67 +4,67 @@
 /*==============================================================*/
 
 
-alter table "Order"
+alter table "ORDERS"
    drop constraint "FK_ORDER_USERS HAV_USER";
 
-alter table "OrderItem"
+alter table "ORDERITEM"
    drop constraint "FK_ORDERITE_ORDER HAS_ORDER";
 
-alter table "OrderItem"
+alter table "ORDERITEM"
    drop constraint "FK_ORDERITE_TICKET IN_TICKET";
 
-alter table "User"
+alter table "USERS"
    drop constraint "FK_USER_USERS HAV_ROLES";
 
 drop index "users have orders_FK";
 
-drop table "Order" cascade constraints;
+drop table "ORDERS" cascade constraints;
 
-drop index "ticket in orders_FK";
+drop index "Ticket in orders_FK";
 
-drop table "OrderItem" cascade constraints;
+drop table "ORDERITEM" cascade constraints;
 
 drop table "Roles" cascade constraints;
 
-drop table "Ticket" cascade constraints;
+drop table "TICKET" cascade constraints;
 
 drop index "Users have roles_FK";
 
-drop table "User" cascade constraints;
+drop table "USERS" cascade constraints;
 
 /*==============================================================*/
-/* Table: "Order"                                               */
+/* Table: "ORDERS"                                               */
 /*==============================================================*/
-create table "Order" 
+create table "ORDERS" 
 (
    "user_email"         VARCHAR2(50)         not null,
    "order_date"         DATE                 not null,
-   "order_id"           VARCHAR2(10)         not null,
+   "order_id"           NUMBER(10)           not null,
    constraint PK_ORDER primary key ("user_email", "order_id")
 );
 
 /*==============================================================*/
 /* Index: "users have orders_FK"                                */
 /*==============================================================*/
-create index "users have orders_FK" on "Order" (
+create index "users have orders_FK" on "ORDERS" (
    "user_email" ASC
 );
 
 /*==============================================================*/
-/* Table: "OrderItem"                                           */
+/* Table: "ORDERITEM"                                           */
 /*==============================================================*/
-create table "OrderItem" 
+create table "ORDERITEM"
 (
    "ticket_type"        VARCHAR2(30)         not null,
    "user_email"         VARCHAR2(50)         not null,
-   "order_id"           VARCHAR2(10)         not null,
-   "tickets_quantity"   NUMBER               not null,
+   "order_id"           NUMBER(10)           not null,
+   "tickets_quantity"   NUMBER               not null
 );
 
 /*==============================================================*/
 /* Index: "ticket in orders_FK"                                 */
 /*==============================================================*/
-create index "ticket in orders_FK" on "OrderItem" (
+create index "ticket in orders_FK" on "ORDERITEM" (
    "ticket_type" ASC
 );
 
@@ -79,9 +79,9 @@ create table "Roles"
 );
 
 /*==============================================================*/
-/* Table: "Ticket"                                              */
+/* Table: "TICKET"                                              */
 /*==============================================================*/
-create table "Ticket" 
+create table "TICKET" 
 (
    "ticket_type"        VARCHAR2(30)         not null,
    "ticket_price"       NUMBER(8,2)          not null,
@@ -90,9 +90,9 @@ create table "Ticket"
 );
 
 /*==============================================================*/
-/* Table: "User"                                                */
+/* Table: "USERS"                                               */
 /*==============================================================*/
-create table "User" 
+create table "USERS" 
 (
    "user_email"         VARCHAR2(50)         not null,
    "role_name"          VARCHAR2(30)         not null,
@@ -107,49 +107,49 @@ create table "User"
 /*==============================================================*/
 /* Index: "Users have roles_FK"                                 */
 /*==============================================================*/
-create index "Users have roles_FK" on "User" (
+create index "Users have roles_FK" on "USERS" (
    "role_name" ASC
 );
 
-alter table "Order"
+alter table "ORDERS"
    add constraint "FK_ORDER_USERS HAV_USER" foreign key ("user_email")
-      references "User" ("user_email");
+      references "USERS" ("user_email");
 
-alter table "OrderItem"
+alter table "ORDERITEM"
    add constraint "FK_ORDERITE_ORDER HAS_ORDER" foreign key ("user_email", "order_id")
-      references "Order" ("user_email", "order_id");
+      references "ORDERS" ("user_email", "order_id");
 
-alter table "OrderItem"
+alter table "ORDERITEM"
    add constraint "FK_ORDERITE_TICKET IN_TICKET" foreign key ("ticket_type")
-      references "Ticket" ("ticket_type");
+      references "TICKET" ("ticket_type");
 
-alter table "User"
+alter table "USERS"
    add constraint "FK_USER_USERS HAV_ROLES" foreign key ("role_name")
       references "Roles" ("role_name");
 
-alter table "User"
+alter table "USERS"
    ADD CONSTRAINT valid_unique UNIQUE ("user_email");
    
-alter table "User"
+alter table "USERS"
    ADD CONSTRAINT valid_unique UNIQUE ("user_cardnumber");   
    
-alter table "User"
+alter table "USERS"
    ADD CONSTRAINT checking_password
    CHECK ( REGEXP_LIKE ("user_password", '[A-Za-z 0-9.,!#$%^&*_]{6,20}'));   
    
-alter table "User"
+alter table "USERS"
   ADD CONSTRAINT check_password_lenght
   CHECK(length("user_password")>5 and length("user_password")<21);
 
-alter table "User"
+alter table "USERS"
   ADD CONSTRAINT check_cardnumber_lenght
   CHECK(length("user_cardnumber")=12);
  
-alter table "User"
+alter table "USERS"
    ADD CONSTRAINT checking_firstname
    CHECK ( REGEXP_LIKE ("user_firstname", '[A-Za-z ,-]{1,20}')); 
  
-alter table "User"
+alter table "USERS"
    ADD CONSTRAINT checking_lastname
    CHECK ( REGEXP_LIKE ("user_lastname", '[A-Za-z ,-]{1,20}')); 
 
@@ -161,11 +161,10 @@ alter table "Roles"
   ADD CONSTRAINT check_role_lenght
   CHECK(length("role_name")>3 and length("role_name")<8);       
 
-alter table "User"
+alter table "USERS"
   ADD CONSTRAINT check_firstname_lenght
   CHECK(length("user_firstname")>0 and length("user_firstname")<21);
     
-alter table "User"
+alter table "USERS"
   ADD CONSTRAINT check_lastname_lenght
-  CHECK(length("user_lastname")>0 and length("user_lastname")<21);    
-   
+  CHECK(length("user_lastname")>0 and length("user_lastname")<21);      

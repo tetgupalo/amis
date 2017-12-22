@@ -3,7 +3,6 @@
 /* Created on:     11/11/2017 11:50:11 AM                       */
 /*==============================================================*/
 
-
 alter table "ORDERS"
    drop constraint "FK_ORDER_USERS HAV_USER";
 
@@ -86,6 +85,7 @@ create table "TICKET"
    "ticket_type"        VARCHAR2(30)         not null,
    "ticket_price"       NUMBER(8,2)          not null,
    "transport_company"  VARCHAR2(30),
+   "AMOUNT"		NUMBER		     not null,
    constraint PK_TICKET primary key ("ticket_type")
 );
 
@@ -97,8 +97,8 @@ create table "USERS"
    "user_email"         VARCHAR2(50)         not null,
    "role_name"          VARCHAR2(30)         not null,
    "user_password"      VARCHAR2(20)         not null,
-   "user_firstname"     VARCHAR2(20)         not null,
-   "user_lastname"      VARCHAR2(20)         not null,
+   "user_firstname"     VARCHAR2(50)         not null,
+   "user_lastname"      VARCHAR2(50)         not null,
    "user_cardnumber"    CHAR(12),
    "user_adress"        VARCHAR2(100),
    constraint PK_USER primary key ("user_email")
@@ -163,8 +163,42 @@ alter table "Roles"
 
 alter table "USERS"
   ADD CONSTRAINT check_firstname_lenght
-  CHECK(length("user_firstname")>0 and length("user_firstname")<21);
+  CHECK(length("user_firstname")>0 and length("user_firstname")<50);
     
 alter table "USERS"
   ADD CONSTRAINT check_lastname_lenght
-  CHECK(length("user_lastname")>0 and length("user_lastname")<21);      
+  CHECK(length("user_lastname")>0 and length("user_lastname")<50);      
+
+alter table "TICKET"
+  ADD CONSTRAINT check_AMOUNT_lenght
+  CHECK("AMOUNT" BETWEEN 0 AND 100000000);
+
+alter table "TICKET"
+  ADD CONSTRAINT check_price_lenght
+  CHECK(length("ticket_price")>0);
+  
+  alter table "TICKET"
+  ADD CONSTRAINT check_price
+  CHECK("ticket_price" BETWEEN 0 AND 10000);
+
+alter table "USERS”
+  add constraint check_email
+  check ( REGEXP_LIKE (user_email, '[a-z0-9._]+@[a-z0-9._]+\.[a-z]{2,4}'));   
+
+// TRIGGERS
+
+create or replace TRIGGER ticket_amount_update
+AFTER INSERT ON "ORDERITEM"
+FOR EACH ROW
+BEGIN
+update "TICKET"
+set "AMOUNT" = "AMOUNT" - :NEW."tickets_quantity"
+where "ticket_type" = :NEW."ticket_type";
+END;
+
+create or replace TRIGGER ID_TRIGGER 
+BEFORE INSERT ON "ORDERS"
+FOR EACH ROW
+BEGIN
+  :NEW."order_id" := MY_SEQ.NEXTVAL;
+END ID_TRIGGER;

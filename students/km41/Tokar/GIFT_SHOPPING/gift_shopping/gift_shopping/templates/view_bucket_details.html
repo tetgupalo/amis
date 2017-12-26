@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Bucket | Details{% endblock title %}
+
+{% block header %}Details of bucket {{ bucket.name }}{% endblock header %}
+
+{% block content %}
+
+		<hr>
+		<p>Bucket {{ bucket.name }} of user {{ bucket.user }}.</p>
+		<p>This bucket is 
+		{% if not bucket.is_ordered %}
+			not ordered.</p>
+		{% else %}
+			ordered in {{ bucket.ordered_time }}.</p>
+		{% endif %}
+		<p><small>Created at {{ bucket.created_time }}</small></p>
+
+		{% if giftitemorder %}
+		<p><big>Gifts:</big></p>
+			<ui>
+				{% for order in giftitemorder %}
+					<li>
+						<!-- <img src="{{ gift.picture.url }}" width="320" height="180" alt="" align="left" /> -->
+						{{ order.quantity }} of <a href="/gifts/view_gift_details/{{ order.gift.id }}/">{{ order.gift }}</a> for ${{ order.gift.price }} for item on {{ order.add_to_bucket_time }}.
+					</li>
+				{% endfor %}
+			</ui>
+		{% else %}
+			<p><big>Gifts: <i>No gifts.</i></big></p>
+		{% endif %}
+		<hr>
+		{% if not bucket.is_ordered %}
+			<h3>You can order this bucket and create a new one!</h3>
+			<form action="/gifts/view_bucket_details/{{ bucket.id }}/" method="post">
+				{% csrf_token %}
+				<p><input id="{{ bucket.id }}" type="text" name="new_bucket_name" value="{{ bucket.id }}" required></p>
+				<input type="submit" value="Order this bucket">
+			</form>
+		{% endif %}
+
+
+{% endblock content %}

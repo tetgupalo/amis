@@ -1,0 +1,16 @@
+
+--
+-- Change Meta options on contenttype
+--
+--
+-- Alter field name on contenttype
+--
+--
+-- MIGRATION NOW PERFORMS OPERATION THAT CANNOT BE WRITTEN AS SQL:
+-- Raw Python operation
+--
+--
+-- Remove field name from contenttype
+--
+ALTER TABLE "DJANGO_CONTENT_TYPE" DROP COLUMN "NAME";
+COMMIT;

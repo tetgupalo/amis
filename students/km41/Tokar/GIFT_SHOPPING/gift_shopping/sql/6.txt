@@ -1,0 +1,6 @@
+
+--
+-- Alter field name on permission
+--
+ALTER TABLE "AUTH_PERMISSION" MODIFY "NAME" NVARCHAR2(255);
+COMMIT;

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Gifts | Details{% endblock title %}
+
+{% block header %}Details of gift {{ gift.name }}{% endblock header %}
+
+{% block content %}
+	<hr>
+	<img src="{{ gift.picture.url }}" width="320" height="180" alt="" align="left" />
+	<p>Description: {{ gift.description }} </p>
+	<p>Quantity: {{ gift.quantity }} </p>
+	<p>Price: {{ gift.price }} </p>
+
+	{% if gift.quantity %}
+		<form action="/gifts/view_gift_details/{{ gift.id }}/" method="post">
+	      {% csrf_token %}
+	          <p><input id="{{ gift.id }}" type="number" name="gift_quantity" value="{{ gift.id }}" min="0" max="{{ gift.quantity }}">
+	      <input type="submit" value="Add to my bucket!">
+	    </form>
+	{% else %}
+		<p><i>There is no more {{ gift.name }}</i></p>
+	{% endif %}
+
+{% endblock content %}

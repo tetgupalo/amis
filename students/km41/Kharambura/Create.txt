@@ -1,0 +1,300 @@
+alter table "ORDERS"
+   drop constraint "FK_ORDER_USERS HAV_USER";
+
+alter table "ORDERITEM"
+   drop constraint "FK_ORDERITE_ORDER HAS_ORDER";
+
+alter table "ORDERITEM"
+   drop constraint "FK_ORDERITE_TICKET IN_TICKET";
+
+alter table "USERS"
+   drop constraint "FK_USER_USERS HAV_ROLES";
+
+drop index "users have orders_FK";
+
+drop table "ORDERS" cascade constraints;
+
+drop index "Ticket in orders_FK";
+
+drop table "ORDERITEM" cascade constraints;
+
+drop table "Roles" cascade constraints;
+
+drop table "TICKET" cascade constraints;
+
+drop index "Users have roles_FK";
+
+drop table "USERS" cascade constraints;
+
+/*==============================================================*/
+/* Table: "ORDERS"                                               */
+/*==============================================================*/
+create table "ORDERS" 
+(
+   "user_email"         VARCHAR2(50)         not null,
+   "order_date"         DATE                 not null,
+   "order_id"           NUMBER(10)           not null,
+   constraint PK_ORDER primary key ("user_email", "order_id")
+);
+
+/*==============================================================*/
+/* Index: "users have orders_FK"                                */
+/*==============================================================*/
+create index "users have orders_FK" on "ORDERS" (
+   "user_email" ASC
+);
+
+/*==============================================================*/
+/* Table: "ORDERITEM"                                           */
+/*==============================================================*/
+create table "ORDERITEM"
+(
+   “id”			NUMBER(10)		not null,
+   "ticket_type"        VARCHAR2(30)         not null,
+   "user_email"         VARCHAR2(100)         not null,
+   "order_id"           NUMBER(10)           not null,
+   "tickets_quantity"   NUMBER(2)               not null,
+    constraint PK_ITEM primary key (“id”)
+);
+
+/*==============================================================*/
+/* Index: "ticket in orders_FK"                                 */
+/*==============================================================*/
+create index "ticket in orders_FK" on "ORDERITEM" (
+   "ticket_type" ASC
+);
+
+/*==============================================================*/
+/* Table: "Roles"                                               */
+/*==============================================================*/
+create table "Roles" 
+(
+   "role_name"          VARCHAR2(30)         not null,
+   "Description"        VARCHAR2(30),
+   constraint PK_ROLES primary key ("role_name")
+);
+
+/*==============================================================*/
+/* Table: "TICKET"                                              */
+/*==============================================================*/
+create table "TICKET" 
+(
+   "ticket_type"        VARCHAR2(30)         not null,
+   "ticket_price"       NUMBER(8,2)          not null,
+   "transport_company"  VARCHAR2(30),
+   "AMOUNT"		          NUMBER(9)	          not null,
+   constraint PK_TICKET primary key ("ticket_type")
+);
+
+/*==============================================================*/
+/* Table: "USERS"                                               */
+/*==============================================================*/
+create table "USERS" 
+(
+   "user_email"         VARCHAR2(100)         not null,
+   "role_name"          VARCHAR2(30)         not null,
+   "user_password"      VARCHAR2(20)         not null,
+   "user_firstname"     VARCHAR2(50)         not null,
+   "user_lastname"      VARCHAR2(50)         not null,
+   "user_cardnumber"    CHAR(12),
+   "user_adress"        VARCHAR2(100),
+   "USER_DELETED"     	NUMBER(1)	           not null,
+   constraint PK_USER primary key ("user_email")
+);
+
+/*==============================================================*/
+/* Index: "Users have roles_FK"                                 */
+/*==============================================================*/
+create index "Users have roles_FK" on "USERS" (
+   "role_name" ASC
+);
+
+
+alter table "ORDERS"
+   add constraint "FK_ORDER_USERS HAV_USER" foreign key ("user_email")
+      references "USERS" ("user_email");
+
+alter table "ORDERITEM"
+   add constraint "FK_ORDERITE_ORDER HAS_ORDER" foreign key ("user_email", "order_id")
+      references "ORDERS" ("user_email", "order_id");
+
+alter table "ORDERITEM"
+   add constraint "FK_ORDERITE_TICKET IN_TICKET" foreign key ("ticket_type")
+      references "TICKET" ("ticket_type");
+
+alter table "USERS"
+   add constraint "FK_USER_USERS HAV_ROLES" foreign key ("role_name")
+      references "Roles" ("role_name");
+
+alter table "USERS"
+   ADD CONSTRAINT valid_unique UNIQUE ("user_cardnumber");   
+   
+alter table "USERS"
+   ADD CONSTRAINT checking_password
+   CHECK ( REGEXP_LIKE ("user_password", '[A-Za-z 0-9.,!#$%^&*_]{6,20}'));   
+   
+alter table "USERS"
+  ADD CONSTRAINT check_password_lenght
+  CHECK(length("user_password")>5 and length("user_password")<21);
+
+alter table "USERS"
+  ADD CONSTRAINT check_cardnumber_lenght
+  CHECK(length("user_cardnumber")=12);
+ 
+alter table "USERS"
+   ADD CONSTRAINT checking_firstname
+   CHECK ( REGEXP_LIKE ("user_firstname", '[A-Za-z ,-]{1,20}')); 
+ 
+alter table "USERS"
+   ADD CONSTRAINT checking_lastname
+   CHECK ( REGEXP_LIKE ("user_lastname", '[A-Za-z ,-]{1,20}')); 
+
+alter table "Roles"
+   ADD CONSTRAINT checking_role
+   CHECK ( REGEXP_LIKE ("role_name", '[A-Za-z]{4,10}'));   
+ 
+alter table "Roles"
+  ADD CONSTRAINT check_role_lenght
+  CHECK(length("role_name")>3 and length("role_name")<11);     
+ 
+alter table "USERS"
+  ADD CONSTRAINT check_firstname_lenght
+  CHECK(length("user_firstname")>0 and length("user_firstname")<50);
+    
+alter table "USERS"
+  ADD CONSTRAINT check_lastname_lenght
+  CHECK(length("user_lastname")>0 and length("user_lastname")<50);      
+
+alter table "TICKET"
+  ADD CONSTRAINT check_AMOUNT_lenght
+  CHECK(length("AMOUNT")>0);
+
+alter table "ORDERITEM"
+  ADD CONSTRAINT check_quant
+  CHECK(("tickets_quantity")<101);
+
+  alter table "ORDERITEM"
+  ADD CONSTRAINT check_quant_lenght
+  CHECK(("tickets_quantity")>0);
+
+alter table "TICKET"
+  ADD CONSTRAINT amount_lenght
+  CHECK(length("AMOUNT")<9);
+
+alter table "TICKET"
+  ADD CONSTRAINT amount_
+  CHECK(("AMOUNT")>0);
+
+alter table "TICKET"
+  ADD CONSTRAINT amount__
+  CHECK(("AMOUNT")<100000000);
+
+alter table "USERS"
+  add constraint check_email
+  check ( REGEXP_LIKE ("user_email", '[a-z0-9._]+@[a-z0-9._]+\.[a-z]{2,4}'));
+
+alter table "USERS"
+  add constraint check_deleted
+  check ( REGEXP_LIKE ("USER_DELETED", '[0-1]{1}'));
+
+alter table "TICKET"
+  ADD CONSTRAINT check_price_lengh
+  CHECK(("tickets_price")>0 and ("tickets_price")<100);
+
+alter table "TICKET"
+  ADD CONSTRAINT check_desc_lengh
+  CHECK(length("transport_company")>0 and length("transport_company")<31);
+
+alter table "TICKET"
+  ADD CONSTRAINT type_lenght
+  CHECK(length("ticket_type")<31);
+
+CREATE SEQUENCE  "PASHA"."MY_SEQ"  MINVALUE 1 MAXVALUE 999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE;
+
+create or replace TRIGGER ticket_amount_update
+AFTER INSERT ON "ORDERITEM"
+FOR EACH ROW
+BEGIN
+update "TICKET"
+set "AMOUNT" = "AMOUNT" - :NEW."tickets_quantity"
+where "ticket_type" = :NEW."ticket_type";
+END;
+
+create or replace TRIGGER ID_TRIGGER 
+BEFORE INSERT ON "ORDERS"
+FOR EACH ROW
+BEGIN
+  :NEW."order_id" := MY_SEQ.NEXTVAL;
+END ID_TRIGGER;
+
+CREATE SEQUENCE  "PASHA"."MY_SEQ2”  MINVALUE 1 MAXVALUE 999999999 INCREMENT BY 1 START WITH 1 CACHE 20;
+
+create or replace TRIGGER ID_TRIGGER2 
+BEFORE INSERT ON “ORDERITEM”
+FOR EACH ROW
+BEGIN
+  :NEW."id" := MY_SEQ2.NEXTVAL;
+END ID_TRIGGER2;
+
+
+create or replace TRIGGER EMAIL_TRIGGER 
+BEFORE INSERT ON "USERS"
+FOR EACH ROW
+BEGIN
+  :NEW."user_email" := regexp_replace(:NEW."user_email", '[[:space:]]*','');
+END ID_TRIGGER;
+
+CREATE OR REPLACE PROCEDURE get_emount_orders (email IN VARCHAR2, p_recordset OUT SYS_REFCURSOR)
+AS
+BEGIN
+  OPEN p_recordset FOR
+    SELECT "user_email", "order_id", "order_date"
+    FROM "ORDERS"
+    WHERE  "user_email" = email;
+END;
+
+// ПАКЕТ
+CREATE OR REPLACE PACKAGE select_pkg IS
+ PROCEDURE get_emount_orders (email IN VARCHAR2, p_recordset OUT SYS_REFCURSOR); 
+END select_pkg;
+
+
+CREATE OR REPLACE PACKAGE BODY select_pkg IS
+PROCEDURE get_emount_orders (email IN VARCHAR2, p_recordset OUT SYS_REFCURSOR)
+IS
+BEGIN
+  OPEN p_recordset FOR 
+    SELECT "user_email", "order_id", "order_date" 
+    FROM "ORDERS" 
+    WHERE  "user_email" = email;
+END get_emount_orders;
+END select_pkg;
+/// 
+
+create or replace TRIGGER date_time
+before INSERT ON "ORDERS"
+FOR EACH ROW
+BEGIN
+   :new."order_date" := TO_DATE(TO_CHAR(SYSDATE,'yyyy/mm/dd hh24:mi:ss'), 'yyyy/mm/dd hh24:mi:ss');
+END;
+
+
+CREATE OR REPLACE VIEW TICKETS_LIST AS
+SELECT "ticket_type" "type","tickets_price" "price", "transport_company" "company", "AMOUNT" "amount"
+FROM "TICKET";
+
+CREATE OR REPLACE VIEW PROFILE AS
+SELECT "user_email" "email", "role_name" "role", "user_password" "password", "user_firstname" "firstname", "user_lastname" "lastname", "user_cardnumber" "cardnumber", "user_adress" "adress"
+FROM "USERS";
+
+CREATE OR REPLACE VIEW LOGIN AS
+SELECT "user_email" "EM", "user_password" "PA"
+FROM "USERS";
+
+CREATE OR REPLACE VIEW ITEM AS
+SELECT “id” “id”, “ticket_type” “type”, “user_email” “email”, “order_id” “oi”, “tickets_quantity” “quant”
+FROM “ORDERITEM”;
+
+CREATE OR REPLACE VIEW ORD AS
+SELECT “user_email” “email”,“order_date” “date”, “order_id” “id”, 
+FROM “ORDERS”;

@@ -1,0 +1,3 @@
+NAZAZR_TEST
+test
+localhost/xe

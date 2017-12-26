@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Gifts | All{% endblock title %}
+
+{% block header %}Gifts | All{% endblock header %}
+
+{% block content %}
+
+	{% block box_A %}
+		<div class="boxA">
+			<h2 center>Books</h2><hr>
+			{% for gift in books_gifts %}
+				<div class="box margin-btm">
+					<a href="/gifts/view_gift_details/{{ gift.id }}/">
+						<img src="{{ gift.picture.url }}" width="320" height="180" alt="" />
+					</a>
+					<div class="details">
+						<p><a href="/gifts/view_gift_details/{{ gift.id }}/">{{ gift.name }}</a></p>
+						<p>Details</p>
+						<p>{{ gift.quantity }} left for price ${{ gift.price }}.</p>
+						<p>{{ gift.description }}</p>
+					</div>
+					<a href="/gifts/view_gift_details/{{ gift.id }}/" class="button">More Details</a>
+				</div>
+			{% endfor %}
+		</div>
+	{% endblock box_A %}
+
+	{% block box_B %}
+		<div class="boxB">
+			<h2 center>Flowers</h2><hr>
+			{% for gift in flowers_gifts %}
+				<div class="box margin-btm">
+					<a href="/gifts/view_gift_details/{{ gift.id }}/">
+						<img src="{{ gift.picture.url }}" width="320" height="180" alt="" />
+					</a>
+					<div class="details">
+						<p><a href="/gifts/view_gift_details/{{ gift.id }}/">{{ gift.name }}</a></p>
+						<p>Details</p>
+						<p>{{ gift.quantity }} left for price ${{ gift.price }}.</p>
+						<p>{{ gift.description }}</p>
+					</div>
+					<a href="/gifts/view_gift_details/{{ gift.id }}/" class="button">More Details</a>
+				</div>
+			{% endfor %}
+		</div>
+	{% endblock box_B %}
+
+	{% block box_C %}
+		<div class="boxC">
+			<h2 center>Other gifts</h2><hr>
+			{% for gift in other_gifts %}
+				<div class="box margin-btm">
+					<a href="/gifts/view_gift_details/{{ gift.id }}/">
+						<img src="{{ gift.picture.url }}" width="320" height="180" alt="" />
+					</a>
+					<div class="details">
+						<p><a href="/gifts/view_gift_details/{{ gift.id }}/">{{ gift.name }}</a> Details</p>
+						<p>{{ gift.quantity }} left for price ${{ gift.price }}.</p>
+						<p>{{ gift.description }}</p>
+					</div>
+					<a href="/gifts/view_gift_details/{{ gift.id }}/" class="button">More Details</a>
+				</div>
+			{% endfor %}
+		</div>
+	{% endblock box_C %}
+
+{% endblock content %}

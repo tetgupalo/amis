@@ -1,0 +1,6 @@
+
+--
+-- Alter field last_login on user
+--
+ALTER TABLE "AUTH_USER" MODIFY "LAST_LOGIN" NULL;
+COMMIT;

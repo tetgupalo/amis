@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Buckets | All{% endblock title %}
+
+{% block header %}Buckets | All{% endblock header %}
+
+{% block content %}
+
+	<hr>
+	{% for bucket in buckets %}
+		<p>Bucket <a href="/gifts/view_bucket_details/{{ bucket.id }}/">{{ bucket.name }}</a> of user {{ bucket.user }}.</p>
+		<p>This bucket is 
+		{% if not bucket.is_ordered %}
+			not ordered.</p>
+		{% else %}
+			ordered in {{ bucket.ordered_time }}.</p>
+		{% endif %}
+		<p><small>Created at {{ bucket.created_time }}</small></p>
+		
+		<br><hr>
+	{% endfor %}
+
+
+{% endblock content %}

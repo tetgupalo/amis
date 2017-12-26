@@ -1,0 +1,6 @@
+
+--
+-- Alter field username on user
+--
+ALTER TABLE "AUTH_USER" MODIFY "USERNAME" NVARCHAR2(150);
+COMMIT;

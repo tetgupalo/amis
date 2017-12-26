@@ -1,11 +1,11 @@
-Database was developed via pytest
+Database was developed via pytest.
 To create db all files should be executed.
-Or run 
+Or run:
 ```
 PYTHONPATH="$(pwd)" pytest ./tests/create_db.py
 ```
 inside application dir.
-To run tests
+To run tests:
 ```
 PYTHONPATH="$(pwd)" pytest ./tests/test_dao.py 
 ```

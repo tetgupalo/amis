@@ -1,0 +1,36 @@
+INSERT INTO "Roles" ("role_name", "Description") 
+VALUES ('User', 'Can buy tickets');
+INSERT INTO "Roles" ("role_name", "Description")
+VALUES ('VipUser', 'Can buy tickets with discount');
+INSERT INTO "Roles" ("role_name", "Description")
+VALUES ('Admin', 'Manage DB');
+
+INSERT INTO "USERS" ("user_email", "role_name", "user_password", "user_firstname", "user_lastname", "user_cardnumber", "user_adress", "USER_DELETED")
+VALUES ('oleg.harambura@gmail.com', 'User', '111111', 'Oleg', 'Kharambura', '000000001','Kovalskiy 5, Kyiv', 0);
+INSERT INTO "USERS" ("user_email", "role_name", "user_password", "user_firstname", "user_lastname", "user_cardnumber", "user_adress", "USER_DELETED")
+VALUES ('galyna.harambura@gmail.com', 'Admin', '222222', 'Galyna', 'Kharambura', '000000002','Kovalskiy 5, Kyiv', 0);
+INSERT INTO "USERS" ("user_email", "role_name", "user_password", "user_firstname", "user_lastname", "user_cardnumber", "user_adress", "USER_DELETED")
+VALUES ('pasha.harambura@gmail.com', 'VipUser', '333333', 'Pavlo', 'Kharambura', '000000003','Kovalskiy 5, Kyiv', 0);
+
+
+INSERT INTO "TICKET" ("ticket_type", "tickets_price", "transport_company", "AMOUNT") 
+VALUES ('Bus', 6, 'KyivPasTrans', 1000000);
+INSERT INTO "TICKET" ("ticket_type", "tickets_price", "transport_company", "AMOUNT") 
+VALUES ('Tramvay', 4, 'KyivPasTrans', 1000000);
+INSERT INTO "TICKET" ("ticket_type", "tickets_price", "transport_company", "AMOUNT") 
+VALUES ('Metro', 5, 'KyivPasTrans', 1000000);
+INSERT INTO "TICKET" ("ticket_type", "tickets_price", "transport_company", "AMOUNT") 
+VALUES ('TroleybasBus', 6, 'KyivPasTrans', 1000000);
+
+INSERT INTO "ORDERS" (”user_email", "order_date", "order_id")
+VALUES ('pasha.harambura@gmail.com', (TO_DATE('2017/11/11 21:02:44', 'yyyy/mm/dd hh24:mi:ss')), 000000001);
+INSERT INTO "ORDERS" ("user_email", "order_date", "order_id")
+VALUES ('oleg.harambura@gmail.com', (TO_DATE('2017/12/11 12:02:44', 'yyyy/mm/dd hh24:mi:ss')), 000000002);
+
+
+INSERT INTO "ORDERITEM" (“id”, "ticket_type", "user_email", "order_id", "tickets_quantity") 
+VALUES (1, ’Bus', 'pasha.harambura@gmail.com', 3, 5);
+INSERT INTO "ORDERITEM" (“id”, "ticket_type", "user_email", "order_id", "tickets_quantity") 
+VALUES (2, ’Metro', 'pasha.harambura@gmail.com', 3, 10);
+INSERT INTO "ORDERITEM" (“id”, "ticket_type", "user_email", "order_id", "tickets_quantity") 
+VALUES (3, ‘Tramvay', 'oleg.harambura@gmail.com', 4, 20);

@@ -1,0 +1,33 @@
+html
+  head
+    title= title
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css')
+  body
+    nav(class="navbar navbar-expand-sm bg-dark navbar-dark")
+        ul(class="navbar-nav")
+            li(class="nav-item")
+                a(class='nav-link', href="/users/authorize") Authorization
+            li(class="nav-item")
+                a(class='nav-link', href="/users/register") Registration
+            li(class="nav-item")
+                    a(class='nav-link', href="/flowers") Show flowers
+            if admin
+                li(class="nav-item")
+                    a(class='nav-link', href="/flowers/create") Add flower
+
+    div(class='container')
+        div(class='row col-md-12 justify-content-center')
+            h1 Flowers
+        table(class='table')
+            tr
+                th Flower name
+                th Flower price
+                th Flower status
+                th Flower quantity
+            for elem in flowers
+                tr
+                    td=elem.FLOWER_NAME
+                    td=elem.FLOWER_PRICE
+                    td=elem.FLOWER_STATUS
+                    td=elem.FLOWER_QUONTITY
+        

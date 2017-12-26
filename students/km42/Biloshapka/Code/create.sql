@@ -1,7 +1,4 @@
-/*==============================================================*/
-/* DBMS name:      ORACLE Version 11g                           */
-/* Created on:     15.11.2017 21:16:21                          */
-/*==============================================================*/
+﻿
 
 
 alter table Delivery
@@ -147,49 +144,6 @@ create table User_type
 /* Table: Constraints                                             */
 /*==============================================================*/
 
-ALTER TABLE "User"
-	ADD CONSTRAINT user_check_name_regexp
-	CHECK ( REGEXP_LIKE (user_name, '^[A-ZА-ЯІЇЄ][a-zа-яіїє-]+($|\s)', 'c'));
-	
-ALTER TABLE "User"
-	ADD CONSTRAINT user_check_name_len
-	CHECK (length(user_name) <= 30);
-	
-ALTER TABLE "User"
-	ADD CONSTRAINT user_check_login_regexp
-	CHECK ( REGEXP_LIKE (user_login, '^[A-Za-z0-9.@#_]+($|\s)', 'c'));
-	
-ALTER TABLE "User"
-	ADD CONSTRAINT user_check_login_len
-	CHECK (length(user_login) <= 30);
-	
-ALTER TABLE "User"
-	ADD CONSTRAINT user_check_email_regexp
-	CHECK( REGEXP_LIKE (user_email, '^[A-Za-z!#$%&*+-=?^_`{|}~\.0-9]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,15}($|\s)'));
-
-ALTER TABLE "User"
-	ADD CONSTRAINT user_check_email_length
-	CHECK(length(user_email) < 30);
-	
-ALTER TABLE "User"
-	ADD CONSTRAINT user_check_password_regexp
-	CHECK ( REGEXP_LIKE (user_password, '^[A-Za-z!#$%&*+-=?^_`{|}~\.0-9@]+($|\s)'));
-	
-ALTER TABLE "User"
-	ADD CONSTRAINT user_check_password_len
-	CHECK (length(user_password) >= 6 and length(user_password) <= 30);
-	
-ALTER TABLE "User"
-	ADD CONSTRAINT user_check_phone_regexp
-	CHECK ( REGEXP_LIKE (user_phone, '^[0-9]{2,15}($|\s)'));
-
-ALTER TABLE "User"
-	ADD CONSTRAINT user_check_phone_len
-	CHECK (length(user_phone) > 2 and length(user_phone) <= 15);
-	
-ALTER TABLE "User"
-	ADD CONSTRAINT user_check_image_regexp
-	CHECK ( REGEXP_LIKE (user_image, '^[.0-9A-Za-z]{3,15}+\/+[0-9]{1,10}\/[.0-9a-zA-Z]{3,15}($|\s)'));
 
 ALTER TABLE "User"
 	ADD CONSTRAINT user_check_image_len

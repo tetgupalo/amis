@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+    <!-- BEGIN HEAD -->
+    <head>
+        <meta charset="utf-8"/>
+        <title>"Easy_drive"</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <meta content="" name="description"/>
+        <meta content="" name="author"/>
+
+        <!-- GLOBAL MANDATORY STYLES -->
+        <link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
+        <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css"/>
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+
+        <!-- PAGE LEVEL PLUGIN STYLES -->
+        <link href="css/animate.css" rel="stylesheet">
+        <link href="vendor/swiper/css/swiper.min.css" rel="stylesheet" type="text/css"/>
+        <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css"/>
+
+        <!-- THEME STYLES -->
+        <link href="css/layout.min.css" rel="stylesheet" type="text/css"/>
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="favicon.ico"/>
+		
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="js/dist/val.js"></script>
+		
+		<script type="text/javascript" >
+		function checkPass()
+{
+    //Store the password field objects into variables ...
+    var pass1 = document.getElementById('pass1');
+    var pass2 = document.getElementById('pass2');
+    //Store the Confimation Message Object ...
+    var message = document.getElementById('confirmMessage');
+    //Set the colors we will be using ...
+    var goodColor = "#66cc66";
+    var badColor = "#ff6666";
+    //Compare the values in the password field 
+    //and the confirmation field
+    if(pass1.value == pass2.value){
+        //The passwords match. 
+        //Set the color to the good color and inform
+        //the user that they have entered the correct password 
+        pass2.style.backgroundColor = goodColor;
+        message.style.color = goodColor;
+        message.innerHTML = "Passwords Match"
+    }else{
+        //The passwords do not match.
+        //Set the color to the bad color and
+        //notify the user.
+        pass2.style.backgroundColor = badColor;
+        message.style.color = badColor;
+        message.innerHTML = "Passwords Do Not Match!"
+    }
+} 
+
+// validates text only
+function Validate(txt) {
+    txt.value = txt.value.replace(/[^a-zA-Z-'\n\r]+/g, '');
+}
+// validate email
+function email_validate(email)
+{
+var regMail = /^([_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+([a-zA-Z]{2,3})$/;
+
+    if(regMail.test(email) == false)
+    {
+    document.getElementById("status").innerHTML    = "<span class='warning'>Email address is not valid yet.</span>";
+    }
+    else
+    {
+    document.getElementById("status").innerHTML	= "<span class='valid'>Thanks, you have entered a valid Email address!</span>";	
+    }
+}
+// validate date of birth
+// validate address
+function add_validate(address)
+{
+var regAdd = /^(?=.*\d)[a-zA-Z\s\d\/]+$/;
+  
+    if(regAdd.test(address) == false)
+    {
+    document.getElementById("statusAdd").innerHTML	= "<span class='warning'>Address is not valid yet.</span>";
+    }
+    else
+    {
+    document.getElementById("statusAdd").innerHTML	= "<span class='valid'>Thanks, Address looks valid!</span>";	
+    }
+}
+
+		</script>
+		
+		<!-- <link href="css/reg_log_style.css" rel="stylesheet" type="text/css"/> -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		
+    </head>
+    <!-- END HEAD -->
+
+    <!-- BODY -->
+    <body id="body" data-spy="scroll" data-target=".header">
+
+        <!--========== HEADER ==========-->
+        <header class="header navbar-fixed-top">
+            <!-- Navbar -->
+            <nav class="navbar" role="navigation">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="menu-container js_nav-item">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="toggle-icon"></span>
+                        </button>
+
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a class="logo-wrap" href="#body">
+                                <img class="logo-img logo-img-main" src="img/my_logo/logo.png" alt="Asentus Logo">
+                                <img class="logo-img logo-img-active" src="img/my_logo/logo-dark.png" alt="Asentus Logo">
+                            </a>
+                        </div>
+                        <!-- End Logo -->
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse nav-collapse">
+                        <div class="menu-container">
+                            <ul class="nav navbar-nav navbar-nav-right">
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="index.php">HOME</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="login.html">LOGIN</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="registration.html">REGISTRATION</a></li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End Navbar Collapse -->
+                </div>
+            </nav>
+            <!-- Navbar -->
+        </header>
+        <!--========== END HEADER ==========-->
+<!--========== SLIDER ==========-->
+        <div class="promo-block">
+            <div class="container">
+                <div class="text-center" style="padding:50px 0">
+					<div class="margin-b-40">
+						<h1 class="promo-block-title">Registration</h1>
+					   
+					</div>
+				
+				
+<!-- REGISTRATION FORM -->
+<div class="text-center" style="padding:50px 0" >
+	
+	<!-- Main Form -->
+	<div class="login-form-1">
+	<div class="form_box">
+		<form id="register-form" class="text-left"  name = "form_reg" method="post" action ="registration.php">
+			
+			
+				
+					<div class="form-group"> 
+						<label for="reg_username" class="sr-only">User name</label>
+						<input type="text" class="form-control" id="txt" onkeyup = "Validate(this)" name="family_name" placeholder="family_name" required minlength="3" maxlength="20">
+						<div id="errLast"></div>
+					</div>
+					<div class="form-group">
+						<label for="reg_password" class="sr-only">First name</label>
+						<input type="text" class="form-control" id="txt" onkeyup = "Validate(this)" name="first_name" placeholder="first_name" required minlength="3" maxlength="20">
+						<div id="errFirst"></div>    
+            </div>
+					</div>
+					
+					<div class="form-group">
+						<label for="reg_email" class="sr-only">Email</label>
+						<input type="email" class="form-control" id="reg_email" name="email" placeholder="email" required minlength="6" maxlength="35">
+					</div>
+					<div class="form-group">
+						<label for="reg_password" class="sr-only">Login</label>
+						<input type="text" class="form-control" id="reg_password" name="login" placeholder="login" required minlength="6" maxlength="20">
+					</div>
+					
+					<div class="form-group">
+						<label for="reg_password_confirm" class="sr-only">Password</label>
+						<input type="password" class="form-control inputpass" id="pass1" name="pass" placeholder="password" required  minlength="6" maxlength="20">
+					</div>
+					
+					<div class="form-group">
+						<label for="reg_password_confirm" class="sr-only">Password Confirm</label>
+						<input type="password" class="form-control inputpass" id="pass2" name="re_pass" placeholder="confirm password" required minlength="6" maxlength="20" onkeyup="checkPass(); return false;">
+						<span id="confirmMessage" class="confirmMessage"></span>
+					</div>
+					<div class="form-group">
+						<label for="driver_licence_date" class="sr-only">Driver licence date</label>
+						<h5 class="promo-block-text"> Driver licence date </h5>
+						<input type="date" class="form-control" id="driver_licence_date" name="driver_licence_date" placeholder = "driver_licence_date" required >
+					</div>
+					
+					<div class="form-group">
+						<label for="driver_licence_number" class="sr-only">Driver licence number</label>
+						<input type="text" class="form-control" id="driver_licence_number" name="driver_licence_number" placeholder = "driver_licence_number" required minlength="10" maxlength="10">
+					</div>
+					
+					<div class="form-group">
+						<h5 class="promo-block-text"> Birthday </h5>
+						<label for="birthday" class="sr-only"> Birthday </label>
+						<input type="date" class="form-control" id="birthday" name="birthday" min = date_format(date_create('1970-01-01'),"Y-m-d") <?php echo 'max= "'.date_format(date_create(),"Y-m-d").'"';?> required>
+					</div>
+					
+					<div class="form-group">
+						<label for="phone" class="sr-only">Phone</label>
+						<input type="text" class="form-control" id="phone" name="phone" class="form-control phone"   placeholder="+ 38(050) 6233 176" minlength="12" maxlength="21">
+					</div>
+					
+					
+					<div class="margin-left" >
+											
+						<h5 class="promo-block-text"><input type="radio" name="user_role" value="user" required >  USER </h5>
+						<h5 class="promo-block-text"><input type="radio" name="user_role" value="lessor" required >  LESSOR </h5> 
+					</div>
+
+				
+				<div class="form-group">
+				<input type="submit" class="btn btn-success" value="SIGN UP" />
+				</div>
+					  
+				
+								
+			
+			<div class="etc-login-form">
+				<p>already have an account? <a href="login.html">login here</a></p>
+			</div>
+		</form>
+	</div>
+	</div>
+	<!-- end:Main Form -->
+</div>
+				
+				</div>
+                
+            </div>
+        </div>
+        <!--========== SLIDER ==========-->
+
+
+        <!--========== SLIDER ==========-->
+
+
+            <!-- Copyright -->
+            <div class="content container">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <img class="footer-logo" src="img/my_logo/logo-dark.png" alt="Rent_car Logo">
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <p class="margin-b-0"><a class="fweight-700" >Car rent service</a> Nazar Kaminskyi </p>
+                    </div>
+                </div>
+                <!--// end row -->
+            </div>
+            <!-- End Copyright -->
+        </footer>
+        <!--========== END FOOTER ==========-->
+
+        <!-- Back To Top -->
+        <a href="javascript:void(0);" class="js-back-to-top back-to-top">Top</a>
+
+        <!-- JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+        <!-- CORE PLUGINS -->
+        <script src="vendor/jquery.min.js" type="text/javascript"></script>
+        <script src="vendor/jquery-migrate.min.js" type="text/javascript"></script>
+        <script src="vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!-- PAGE LEVEL PLUGINS -->
+        <script src="vendor/jquery.easing.js" type="text/javascript"></script>
+        <script src="vendor/jquery.back-to-top.js" type="text/javascript"></script>
+        <script src="vendor/jquery.smooth-scroll.js" type="text/javascript"></script>
+        <script src="vendor/jquery.wow.min.js" type="text/javascript"></script>
+        <script src="vendor/swiper/js/swiper.jquery.min.js" type="text/javascript"></script>
+        <script src="vendor/magnific-popup/jquery.magnific-popup.min.js" type="text/javascript"></script>
+        <script src="vendor/masonry/jquery.masonry.pkgd.min.js" type="text/javascript"></script>
+        <script src="vendor/masonry/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsXUGTFS09pLVdsYEE9YrO2y4IAncAO2U&amp;callback=initMap" async defer></script>
+
+        <!-- PAGE LEVEL SCRIPTS -->
+        <script src="js/layout.min.js" type="text/javascript"></script>
+        <script src="js/components/wow.min.js" type="text/javascript"></script>
+        <script src="js/components/swiper.min.js" type="text/javascript"></script>
+        <script src="js/components/maginific-popup.min.js" type="text/javascript"></script>
+        <script src="js/components/masonry.min.js" type="text/javascript"></script>
+        <script src="js/components/gmap.min.js" type="text/javascript"></script>
+
+    </body>
+    <!-- END BODY -->
+</html>

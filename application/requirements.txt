@@ -1,8 +1,0 @@
-pytest
-cx_Oracle
-django
-google-api-python-client
-google-auth
-google-auth-oauthlib
-google-auth-httplib2
-python-dateutil

@@ -62,6 +62,7 @@ create table Pool
    line_number          INTEGER              not null,
    line_length          FLOAT(8)             not null,
    pool_name            VARCHAR2(256)        not null,
+   deleted				NUMBER(1) DEFAULT 1,
    constraint PK_POOL primary key (line_id)
 );
 
@@ -72,6 +73,7 @@ create table Role
 (
    role_name            VARCHAR2(256)        not null,
    role_description     VARCHAR2(1024)       not null,
+   deleted				NUMBER(1) DEFAULT 1,
    constraint PK_ROLE primary key (role_name)
 );
 
@@ -86,6 +88,7 @@ create table Schedule
    team_name_fk         VARCHAR2(256)        not null,
    day                  DATE                 not null,
    time                 DATE                 not null,
+   deleted				NUMBER(1) DEFAULT 1,
    constraint PK_SCHEDULE primary key (line_id_fk, member_id_fk, coach_id_fk, team_name_fk)
 );
 
@@ -114,6 +117,7 @@ create table Tariff
    tariff_price         FLOAT(8)             not null,
    tariff_subscription_time VARCHAR2(5)      not null,
    tariff_description   VARCHAR2(1024)       not null,
+   deleted				NUMBER(1) DEFAULT 1,
    constraint PK_TARIFF primary key (tariff_name)
 );
 
@@ -125,6 +129,7 @@ create table Tariff_plan
    tariff_name_fk       VARCHAR2(256)        not null,
    user_id_fk           INTEGER              not null,
    pay_date             DATE                 not null,
+   deleted				NUMBER(1) DEFAULT 1,
    constraint PK_TARIFF_PLAN primary key (tariff_name_fk, user_id_fk)
 );
 
@@ -150,6 +155,7 @@ create table Team
    coach_id_fk          INTEGER              not null,
    member_id_fk         INTEGER              not null,
    team_name            VARCHAR2(256)        not null,
+   deleted				NUMBER(1) DEFAULT 1,
    constraint PK_TEAM primary key (member_id_fk, coach_id_fk, team_name)
 );
 
@@ -185,6 +191,7 @@ create table "User"
    med_doc              VARCHAR2(2048)       not null,
    sport_rank           VARCHAR2(256),
    password             VARCHAR2(256)        not null,
+   deleted				NUMBER(1) DEFAULT 1  not null,
    constraint PK_USER primary key (user_id)
 );
 
@@ -246,7 +253,7 @@ ALTER TABLE "User"
 	
 ALTER TABLE "User"
 	ADD CONSTRAINT user_check_address_regexp
-	CHECK ( REGEXP_LIKE (user_address, '^[A-ZА-ЯІЄЇа-яіїє,a-z .0-9]+($|\s)', 'c'));
+	CHECK ( REGEXP_LIKE (user_address, '^[A-ZА-ЯІЄЇа-яіїє,''a-z .0-9-]+($|\s)', 'c'));
 	
 ALTER TABLE "User"
 	ADD CONSTRAINT user_check_address_len
@@ -262,7 +269,7 @@ ALTER TABLE "User"
   
 ALTER TABLE "User"
 	ADD CONSTRAINT user_check_meddoc_regexp
-	CHECK ( REGEXP_LIKE (med_doc, '^[.0-9A-Za-z]{3,15}+\/+[0-9]{1,10}\/[.0-9a-zA-Z]{3,15}($|\s)'));
+	CHECK ( REGEXP_LIKE (med_doc, '^[_.0-9A-Za-z@()А-ЯІЄЇа-яіїє-]{3,15}+\/[_.0-9a-zA-Z@()А-ЯІЄЇа-яіїє-]{3,15}\/+[_.0-9a-zA-Z@А-ЯІЄЇа-яіїє()-]{3,15}($|\s)'));
 
 ALTER TABLE "User"
 	ADD CONSTRAINT user_check_meddoc_len
@@ -386,3 +393,350 @@ alter table Team
 alter table "User"
    add constraint FK_USER_HAS_ROLE foreign key (role_name_fk)
       references Role (role_name);
+COMMIT;
+
+/*==============================================================*/
+/* LOGIC                                               */
+/*==============================================================*/
+
+/*==============================================================*/
+/* VIEWS                                               */
+/*==============================================================*/
+
+CREATE OR REPLACE VIEW "Admin" AS
+SELECT "User".email email, "User".role_name_fk role_name_fk, 
+"User".first_name first_name, "User".second_name second_name, 
+"User".last_name last_name, "User".birthday birthday, 
+"User".user_address address, "User".phone_number phone_number, 
+"User".med_doc med_doc, "User".sport_rank sport_rank
+FROM "User" WHERE ROLE_NAME_FK = 'Admin' AND DELETED = 1;
+COMMIT;
+
+CREATE OR REPLACE VIEW "Coach" AS
+SELECT "User".email email, "User".role_name_fk role_name_fk, 
+"User".first_name first_name, "User".second_name second_name, 
+"User".last_name last_name, "User".birthday birthday, 
+"User".user_address address, "User".phone_number phone_number, 
+"User".med_doc med_doc, "User".sport_rank sport_rank
+FROM "User" WHERE ROLE_NAME_FK = 'Coach' AND DELETED = 1;
+COMMIT;
+
+CREATE OR REPLACE VIEW "CoachForClient" AS
+SELECT "User".email email, "User".role_name_fk role_name_fk, 
+"User".first_name first_name, "User".second_name second_name, 
+"User".last_name last_name, "User".sport_rank sport_rank
+FROM "User" WHERE ROLE_NAME_FK = 'Coach' AND DELETED = 1;
+COMMIT;
+
+CREATE OR REPLACE VIEW "ClientForCoach" AS
+SELECT "User".email email, "User".role_name_fk role_name_fk, 
+"User".first_name first_name, "User".second_name second_name, 
+"User".last_name last_name, "User".phone_number phone_number,
+"User".sport_rank sport_rank
+FROM "User" WHERE ROLE_NAME_FK = 'Client' AND DELETED = 1;
+COMMIT;
+
+CREATE OR REPLACE VIEW "Client" AS
+SELECT "User".email email, "User".role_name_fk role_name_fk, 
+"User".first_name first_name, "User".second_name second_name, 
+"User".last_name last_name, "User".birthday birthday, 
+"User".user_address address, "User".phone_number phone_number, 
+"User".med_doc med_doc, "User".sport_rank sport_rank
+FROM "User" WHERE ROLE_NAME_FK = 'Client' AND DELETED = 1;
+COMMIT;
+
+CREATE OR REPLACE VIEW "Guest" AS
+SELECT "User".email email, "User".role_name_fk role_name_fk, 
+"User".first_name first_name, "User".second_name second_name, 
+"User".last_name last_name, "User".birthday birthday, 
+"User".user_address address, "User".phone_number phone_number, 
+"User".med_doc med_doc, "User".sport_rank sport_rank
+FROM "User" WHERE ROLE_NAME_FK = 'Guest' AND DELETED = 1;
+COMMIT;
+
+CREATE OR REPLACE VIEW "Team" AS
+SELECT TEAM.coach_id_fk coach_id_fk, TEAM.member_id_fk member_id_fk,
+TEAM.team_name team_name FROM TEAM;
+COMMIT;
+
+/*==============================================================*/
+/* PROCEDURES                                               */
+/*==============================================================*/
+
+-- CREATE OR REPLACE PROCEDURE registerGuest(user_row in "User"%)
+CREATE OR REPLACE PACKAGE WORK_PACK IS
+	TYPE is_regUser IS RECORD (
+user_id                 INTEGER,
+   email                VARCHAR2(254),
+   first_name           VARCHAR2(256),
+   second_name          VARCHAR2(256),
+   last_name            VARCHAR2(256),
+   birthday             DATE,
+   user_address         VARCHAR2(256),
+   phone_number         VARCHAR2(15),
+   med_doc              VARCHAR2(2048),
+   sport_rank           VARCHAR2(256),
+   password             VARCHAR2(256)        
+);
+	FUNCTION GETUSERLOGINDATA(user_email in "User".email%TYPE) RETURN VARCHAR2;
+	PROCEDURE registerGuest(
+	email in "User".email%TYPE
+    ,password in "User".password%TYPE
+	,first_name in "User".first_name%TYPE
+	,second_name in "User".second_name%TYPE
+	,last_name in "User".last_name%TYPE
+	,user_address in "User".user_address%TYPE
+	,phone_number in "User".phone_number%TYPE
+	,med_doc in "User".med_doc%TYPE
+	,sport_rank in "User".sport_rank%TYPE
+	,birthday in VARCHAR2);
+    
+	PROCEDURE registerUser(register_row in is_regUser,
+		role_name in "User".role_name_fk%TYPE);
+	PROCEDURE copyFromRecord(register_row in is_regUser,
+		USER_ROW out "User"%ROWTYPE);
+	PROCEDURE createUser(user_row in "User"%ROWTYPE);
+	PROCEDURE joinAdmin (admemail in "Admin".email%TYPE);
+	PROCEDURE joinCoach (admemail in "Coach".email%TYPE);
+	PROCEDURE joinClient (admemail in "Client".email%TYPE);
+	PROCEDURE createTariffPlan(client_email in "Client".email%TYPE
+, c_tariff in Tariff.tariff_name%TYPE);
+	PROCEDURE createTeam(client_email in "Client".email%TYPE
+, c_tariff in Tariff.tariff_name%TYPE);
+END WORK_PACK;
+/
+CREATE OR REPLACE PACKAGE BODY WORK_PACK IS
+FUNCTION GETUSERLOGINDATA(user_email in "User".email%TYPE) RETURN VARCHAR2
+IS
+user_passwd "User".password%TYPE;
+BEGIN
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+SELECT PASSWORD INTO user_passwd FROM "User" WHERE EMAIL=user_email AND
+DELETED <> 0;
+COMMIT;
+RETURN(user_passwd);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN('0');
+end GETUSERLOGINDATA;
+PROCEDURE registerGuest(
+	email in "User".email%TYPE
+    ,password in "User".password%TYPE
+	,first_name in "User".first_name%TYPE
+	,second_name in "User".second_name%TYPE
+	,last_name in "User".last_name%TYPE
+	,user_address in "User".user_address%TYPE
+	,phone_number in "User".phone_number%TYPE
+	,med_doc in "User".med_doc%TYPE
+	,sport_rank in "User".sport_rank%TYPE
+	,birthday in VARCHAR2)
+IS
+role_name "User".role_name_fk%TYPE := 'Guest';
+register_row is_regUser;
+BEGIN
+register_row.email := email;
+register_row.first_name := first_name;
+register_row.second_name := second_name;
+register_row.last_name := last_name;
+--register_row.birthday := birthday;
+SELECT TO_DATE(birthday, 'YYYY-MM-DD') INTO register_row.birthday FROM DUAL;
+register_row.user_address := user_address;
+register_row.phone_number := phone_number;
+register_row.med_doc := med_doc;
+register_row.password := password;
+register_row.sport_rank := sport_rank;
+registerUser(register_row, role_name);
+END registerGuest;
+
+PROCEDURE registerUser(register_row in is_regUser,
+		role_name in "User".role_name_fk%TYPE)
+IS
+USER_ROW "User"%ROWTYPE;
+BEGIN
+copyFromRecord(register_row, USER_ROW);
+USER_ROW.role_name_fk := role_name;
+createUser(USER_ROW);
+END registerUser;
+
+PROCEDURE copyFromRecord(register_row in is_regUser,
+	USER_ROW out "User"%ROWTYPE)
+IS
+BEGIN
+  USER_ROW.email := register_row.email;
+  USER_ROW.first_name := register_row.first_name;
+  USER_ROW.second_name := register_row.second_name;
+  USER_ROW.last_name := register_row.last_name;
+  USER_ROW.birthday := register_row.birthday;
+  SELECT SYSDATE INTO USER_ROW.REG_DAY FROM DUAL;
+  USER_ROW.user_address := register_row.user_address;
+  USER_ROW.phone_number := register_row.phone_number;
+  USER_ROW.med_doc := register_row.med_doc;
+  USER_ROW.sport_rank := register_row.sport_rank;
+  USER_ROW.password := register_row.password;
+END copyFromRecord;
+
+
+PROCEDURE createUser(user_row in "User"%ROWTYPE)
+IS
+c_user_id "User".user_id%TYPE := 0;
+curdate   "User".reg_day%TYPE;
+newuser "User"%ROWTYPE;
+BEGIN
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+SELECT SYSDATE INTO curdate FROM DUAL;
+newuser := user_row;
+newuser.reg_day := curdate;
+SELECT USER_ID INTO c_user_id FROM "User" WHERE "User".email = user_row.email; 
+UPDATE "User" SET DELETED = 1 WHERE USER_ID = c_user_id;
+COMMIT;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        INSERT INTO "User" VALUES user_row;
+        COMMIT;
+END createUser;
+
+PROCEDURE joinAdmin (admemail in "Admin".email%TYPE)
+IS
+BEGIN
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+UPDATE "User" SET role_name_fk = 'Admin'
+WHERE deleted <> 0 AND email = admemail;
+COMMIT;
+END joinAdmin;
+
+PROCEDURE joinCoach (admemail in "Coach".email%TYPE)
+IS
+BEGIN
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+UPDATE "User" SET role_name_fk = 'Coach'
+WHERE deleted <> 0 AND email = admemail;
+COMMIT;
+END joinCoach;
+
+PROCEDURE joinClient (admemail in "Client".email%TYPE)
+IS
+BEGIN
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+UPDATE "User" SET role_name_fk = 'Client'
+WHERE deleted <> 0 AND email = admemail;
+COMMIT;
+END joinClient;
+
+--INSERT INTO TARIFF_PLAN (TARIFF_NAME_FK, USER_ID_FK, PAY_DATE) VALUES ('Basic', 1837647721, TO_DATE('2017-11-01 08:46:01', 'YYYY-MM-DD HH24:MI:SS'));
+PROCEDURE createTariffPlan(client_email in "Client".email%TYPE
+, c_tariff in Tariff.tariff_name%TYPE)
+IS
+client_id "User".user_id%TYPE;
+curdate Tariff_plan.PAY_DATE%TYPE; 
+BEGIN
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+SELECT USER_ID INTO client_id FROM "User" WHERE ROLE_NAME_FK = 'Client' AND
+DELETED <> 0 AND EMAIL = client_email;
+SELECT SYSDATE INTO curdate FROM DUAL; 
+INSERT INTO TARIFF_PLAN (TARIFF_NAME_FK, USER_ID_FK, PAY_DATE) VALUES (
+c_tariff, client_id, curdate);
+COMMIT;
+END createTariffPlan;
+
+--THINK ABOUT IT!!!!!
+PROCEDURE createTeam(client_email in "Client".email%TYPE
+, c_tariff in Tariff.tariff_name%TYPE)
+IS
+client_id "User".user_id%TYPE;
+curdate Tariff_plan.PAY_DATE%TYPE; 
+BEGIN
+SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+SELECT USER_ID INTO client_id FROM "User" WHERE ROLE_NAME_FK = 'Client' AND
+DELETED <> 0 AND EMAIL = client_email;
+SELECT SYSDATE INTO curdate FROM DUAL; 
+INSERT INTO TARIFF_PLAN (TARIFF_NAME_FK, USER_ID_FK, PAY_DATE) VALUES (
+c_tariff, client_id, curdate);
+COMMIT;
+END createTeam;
+END WORK_PACK;
+/
+/*==============================================================*/
+/* TRIGGERS DELETE                                               */
+/*==============================================================*/
+
+CREATE OR REPLACE TRIGGER deleteAdmin INSTEAD
+OF DELETE ON "Admin"
+DECLARE
+BEGIN
+	UPDATE "User" SET deleted = 0;
+END deleteAdmin;
+/
+CREATE OR REPLACE TRIGGER deleteCoach INSTEAD
+OF DELETE ON "Coach"
+BEGIN
+	UPDATE "User" SET deleted = 0 WHERE "User".email = :old.email;
+END deleteCoach;
+/
+CREATE OR REPLACE TRIGGER deleteClient INSTEAD
+OF DELETE ON "Client"
+BEGIN
+	UPDATE "User" SET deleted = 0 WHERE "User".email = :old.email;
+END deleteClient;
+/
+CREATE OR REPLACE TRIGGER deleteGuest INSTEAD
+OF DELETE ON "Guest"
+BEGIN
+	UPDATE "User" SET deleted = 0 WHERE "User".email = :old.email;
+END deleteGuest;
+/
+/*==============================================================*/
+/* TRIGGERS INSERT                                              */
+/*==============================================================*/
+
+CREATE OR REPLACE TRIGGER insertAdmin INSTEAD
+OF INSERT ON "Admin"
+BEGIN
+	NULL;
+END insertAdmin;
+/
+CREATE OR REPLACE TRIGGER insertCoach INSTEAD
+OF INSERT ON "Coach"
+BEGIN
+	NULL;
+END insertCoach;
+/
+CREATE OR REPLACE TRIGGER insertClient INSTEAD
+OF INSERT ON "Client"
+BEGIN
+	NULL;
+END insertClient;
+/
+CREATE OR REPLACE TRIGGER insertGuest INSTEAD
+OF INSERT ON "Guest"
+BEGIN
+	NULL;
+END insertGuest;
+/
+DROP SEQUENCE user_id_seq;
+/
+DROP SEQUENCE line_id_seq;
+/
+CREATE SEQUENCE user_id_seq START WITH 1;
+/
+CREATE SEQUENCE line_id_seq START WITH 1;
+/
+
+CREATE OR REPLACE TRIGGER user_id_counter 
+BEFORE INSERT ON "User" 
+FOR EACH ROW
+BEGIN
+  SELECT user_id_seq.NEXTVAL
+  INTO   :new.user_id
+  FROM   dual;
+  :new.deleted := 1;
+END;
+/
+CREATE OR REPLACE TRIGGER line_id_counter 
+BEFORE INSERT ON POOL 
+FOR EACH ROW
+BEGIN
+  SELECT line_id_seq.NEXTVAL
+  INTO   :new.line_id
+  FROM   dual;
+END;
+/

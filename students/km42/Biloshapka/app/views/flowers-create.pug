@@ -1,0 +1,51 @@
+html
+  head
+    title= title
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css')
+  body
+    nav(class="navbar navbar-expand-sm bg-dark navbar-dark")
+        ul(class="navbar-nav")
+            li(class="nav-item")
+                a(class='nav-link', href="/users/authorize") Authorization
+            li(class="nav-item")
+                a(class='nav-link', href="/users/register") Registration
+            li(class="nav-item")
+                    a(class='nav-link', href="/flowers") Show flowers
+            if admin
+                li(class="nav-item")
+                    a(class='nav-link', href="/flowers/create") Add flower
+
+
+    div(class='container')
+        div(class='row col-md-12 justify-content-center')
+            h1 Add new flower
+        div(class='row col-md-12 justify-content-center')
+            form(action='/flowers/create', method="POST",class='form col-md-8')
+                div(class='form-group col-md-12 row')
+                    div(class='col-md-8')
+                        input(type='text', name='name', required, class='form-control', placeholder='Name')
+                    if errors.name
+                        div(class='col-md-4')
+                            small(class="text-danger")=errors.name                                        
+                div(class='form-group col-md-12 row')
+                    div(class='col-md-8')
+                        input(type='number', name='price',required, class='form-control', placeholder='Price')
+                    if errors.price
+                        div(class='col-md-4')
+                            small(class="text-danger")=errors.price   
+                div(class='form-group col-md-12 row')
+                    div(class='col-md-8')
+                        select(class='form-control' name='status')
+                            option(value='Available') Available
+                            option(value='Unavailable') Unavailable
+                    if errors.status
+                        div(class='col-md-4')
+                            small(class="text-danger")=errors.status   
+                div(class='form-group col-md-12 row')
+                    div(class='col-md-8')
+                        input(type='number', name='quantity',required, class='form-control', placeholder='Quantity')
+                    if errors.quantity
+                        div(class='col-md-4')
+                            small(class="text-danger")=errors.quantity            
+                <div class="col-sm-6 col-sm-offset-3">
+                    <input type="submit" name="register-submit" style="width:150px" class="form-control btn btn-primary" value="Register">

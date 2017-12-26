@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    Sourses
+</h:head>
+<h:body>
+
+    <p:tabView id="tab">
+        <p:tab title="Accounts">
+
+            <ui:include src="accounts.xhtml"/>
+
+        </p:tab>
+        <p:tab title="Technology">
+            <ui:include src="technologies.xhtml"/>
+        </p:tab>
+        <p:tab title="Source code">
+         <ui:include src="sources.xhtml"/>
+        </p:tab>
+    </p:tabView>
+
+    <p:dialog id="dlgCreateAccount" header="Modal Dialog" widgetVar="dlgCreateAccount" modal="true" height="200">
+        <h:form id="CreateAccoutForm">
+            <h:panelGrid columns="2" cellpadding="2">
+                <h:outputLabel for="login" value="login:"/>
+                <h:inputText id="login" value="#{dtAccount.newAccount.login}"/>
+                <h:outputLabel for="description" value="description:"/>
+                <h:inputText id="description" value="#{dtAccount.newAccount.description}"/>
+            </h:panelGrid>
+            <p:commandButton value="Save" update="tab:formAccount" actionListener="#{dtAccount.saveAcc}"
+                             oncomplete="PF('dlgCreateAccount').hide()"/>
+
+        </h:form>
+    </p:dialog>
+    <p:dialog id="dlgCreateTechnology" header="Modal Dialog" widgetVar="dlgCreateTechnology" modal="true" height="200">
+        <h:form id="CreateTechnology">
+            <h:panelGrid columns="2" cellpadding="2">
+                <h:outputLabel for="nameTech" value="name:"/>
+                <h:inputText id="nameTech" value="#{dtTechnology.newTechnology.name}"/>
+                <h:outputLabel for="descriptionTech" value="description:"/>
+                <h:inputText id="descriptionTech" value="#{dtTechnology.newTechnology.description}"/>
+            </h:panelGrid>
+            <p:commandButton value="Save" update="tab:formTechnology" actionListener="#{dtTechnology.saveTech}"
+                             oncomplete="PF('dlgCreateTechnology').hide()"/>
+
+        </h:form>
+    </p:dialog>
+    <p:dialog id="dlgCreateSource" header="Modal Dialog" widgetVar="dlgCreateSource" modal="true" height="200">
+        <h:form id="CreateSource">
+            <h:panelGrid columns="2" cellpadding="2">
+                <h:outputLabel for="code" value="code:"/>
+                <h:inputText id="code" value="#{dtSource.newSource.code}"/>
+                <h:outputLabel for="descriptionSrc" value="description:"/>
+                <h:inputText id="descriptionSrc" value="#{dtSource.newSource.description}"/>
+            </h:panelGrid>
+            <p:commandButton value="Save" update="tab:formSource" actionListener="#{dtSource.saveSrc}"
+                             oncomplete="PF('dlgCreateSource').hide()"/>
+        </h:form>
+    </p:dialog>
+    <p:dialog id="dlgAddAccount" header="Modal Dialog" widgetVar="dlgAddAccount" modal="true" height="200" dynamic="true">
+        <h:form id="AddAccoutForm">
+            <h:panelGrid columns="2" cellpadding="2">
+                <h:outputLabel for="accountLogin" value="account login:"/>
+                <p:selectOneMenu id="accountLogin" value="#{dtSource.tempLogin}" effect="fold" editable="true">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                    <f:selectItems value="#{dtSource.availableLogins}" />
+                </p:selectOneMenu>
+            </h:panelGrid>
+            <p:commandButton value="Save" update="tab:formAccountS" actionListener="#{dtSource.addAcc}"
+                             oncomplete="PF('dlgAddAccount').hide()"/>
+
+        </h:form>
+    </p:dialog>
+    <p:dialog id="dlgAddTechnology" header="Modal Dialog" widgetVar="dlgAddTechnology" modal="true" height="200" dynamic="true">
+        <h:form id="AddTechnologyForms">
+            <h:panelGrid columns="2" cellpadding="2">
+                <h:outputLabel for="nameTechS" value="technology name:"/>
+                <p:selectOneMenu id="nameTechS" value="#{dtSource.tempTechnology}" effect="fold" editable="true">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                    <f:selectItems value="#{dtSource.availableTechnology}" />
+                </p:selectOneMenu>
+            </h:panelGrid>
+            <p:commandButton value="Save" update="tab:formTechnologyS" actionListener="#{dtSource.addTech}"
+                             oncomplete="PF('dlgAddTechnology').hide()"/>
+
+        </h:form>
+    </p:dialog>
+</h:body>
+</html>

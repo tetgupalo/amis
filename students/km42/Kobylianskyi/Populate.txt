@@ -1,0 +1,23 @@
+
+INSERT INTO "ROMA"."Program_language" ("name_lang", "id_lang") VALUES ('Java', '1');
+INSERT INTO "ROMA"."Program_language" ("name_lang", "id_lang") VALUES ('C++', '2');
+INSERT INTO "ROMA"."Program_language" ("name_lang", "id_lang") VALUES ('Pure C', '3');
+
+INSERT INTO "ROMA"."Language_compilator" ("id_compilator", "id_lang", "compiler_version", "path_to_compilator") VALUES ('1', '1', '1.8', 'D:\sqldeveloper');
+INSERT INTO "ROMA"."Language_compilator" ("id_compilator", "id_lang", "compiler_version", "path_to_compilator") VALUES ('2', '1', '1.7', 'D:\sqldeveloper\java');
+INSERT INTO "ROMA"."Language_compilator" ("id_compilator", "id_lang", "compiler_version", "path_to_compilator") VALUES ('3', '2', '4.33', 'D:\sqldeveloper\cpp');
+
+INSERT INTO "ROMA"."Key_word" ("id_key_word", "key_word", "id_lang") VALUES ('2', 'while', '1');
+INSERT INTO "ROMA"."Key_word" ("id_key_word", "key_word", "id_lang") VALUES ('3', 'for', '1');
+INSERT INTO "ROMA"."Key_word" ("id_key_word", "key_word", "id_lang") VALUES ('1', 'int', '1');
+
+
+INSERT INTO "ROMA"."Language_structure" ("id_structure", "structure") VALUES ('1', 'int value = 0;');
+
+INSERT INTO "ROMA"."Language_structure" ("id_structure", "structure") VALUES ('2', 'for(int i =0; i <n;i++)');
+INSERT INTO "ROMA"."Language_structure" ("id_structure", "structure") VALUES ('3', 'while(statment)');
+
+
+INSERT INTO "ROMA"."Structure_and_keyword" ("id_key_word", "id_structure") VALUES ('1', '1');
+INSERT INTO "ROMA"."Structure_and_keyword" ("id_key_word", "id_structure") VALUES ('2', '3');
+INSERT INTO "ROMA"."Structure_and_keyword" ("id_key_word", "id_structure") VALUES ('3', '2');

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+          href="../public/css/bootstrap.min.css"/>
+</head>
+<link rel="stylesheet" th:href="@{/css/home_page.css}"
+      href="../public/css/home_page.css"/>
+
+
+<body>
+
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">
+        <img class="logo" th:src="@{/img/logo.jpg}"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+
+            <a class="nav-item nav-link" href="/logout">Log out</a>
+
+            <a class="nav-item nav-link disabled" th:href="${myPage}">My page</a>
+        </div>
+    </div>
+</nav>
+
+
+<table class="table  table-dark col-9 container">
+    <thead>
+    <tr class="row mx-2">
+        <th class="col-4" scope="col">IMG</th>
+        <th class="col-2" scope="col">TYPE</th>
+        <th class="col-2" scope="col">PRICE</th>
+        <th class="col-2" scope="col">ADDRESS</th>
+        <th class="col-2" scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--/*@thymesVar id="flatArray" type="com.mikolenko.oksana.database.persistense.entry.FlatEntry"*/-->
+    <th:block th:each="flat : ${flatArray}">
+        <tr class="row mx-2">
+            <!--/*@thymesVar id="flat" type="com.mikolenko.oksana.database.persistense.entry.FlatEntry"*/-->
+            <td class="col-4">
+               <img th:src="@{'/img/'+ ${flat.path}}" style="height: 15em; width: 20em"/>
+            </td>
+            <td class="col-2" th:text="${flat.flatType}">...</td>
+            <td class="col-2" th:text="${flat.flatPrice}">...</td>
+            <td class="col-2" th:text="${flat.flatAddress}">...</td>
+            <td class="col-2">
+                <a th:href="@{'/flat?address=' + ${flat.flatAddress}}">
+                    <div class="btn badge-info"> More</div>
+                </a>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="lowestprice"> </div>
+                    <div class="highetprice"> </div>
+                    <div class="type"> </div>
+                    <div class="startdate"> </div>
+                    <div class="finishdate"> </div>
+
+
+
+
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</table>
+
+
+</body>
+
+</html>

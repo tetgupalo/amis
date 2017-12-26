@@ -1,0 +1,22 @@
+.navbar {
+    background-color: #FFFFFF;
+
+}
+.logo{
+    width:100px;
+    height: 50px;
+}
+/*.flat_page{*/
+/*margin-left: 25%; !* Отступ слева *!*/
+/*width: 50%; !* Ширина слоя *!*/
+/*height: 200%;*/
+/*background: #f7f7f7; !* Цвет фона *!*/
+/*padding: 10px; !* Поля вокруг текста *!*/
+/*}*/
+.image{
+    width: 400px;
+    height: 230px;
+}
+.body{
+    background-image: url("../img/bg.jpg");
+}

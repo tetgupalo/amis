@@ -1,0 +1,13 @@
+body{
+    /* Safari 4-5, Chrome 1-9 */
+    background-image: url("../img/bg.jpg");
+
+
+}
+.navbar{
+    background-color:#FFFFFF ;
+}
+.logo{
+    width:100px;
+    height: 50px;
+}

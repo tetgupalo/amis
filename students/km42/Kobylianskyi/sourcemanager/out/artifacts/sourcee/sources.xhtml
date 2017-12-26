@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:body>
+    <p:layout style="min-width:400px;min-height:800px;">
+        <p:layoutUnit position="west" resizable="true" size="500">
+            <h:form id="formSource">
+                <h:panelGrid columns="1" cellpadding="5">
+                    <h:commandButton value="Create Source" type="button" onclick="PF('dlgCreateSource').show()"/>
+
+                </h:panelGrid>
+                <p:dataTable id="tableSource" var="source"
+                             value="#{dtSource.sources}" selectionMode="single"
+                             selection="#{dtSource.selectedSource}"
+                             rowKey="#{source.code}">
+                    <p:ajax event="rowSelect" listener="#{dtSource.onRowSelect}" update="tab:formAccountS tab:formTechnologyS"/>
+                    <p:column headerText="login" width="100">
+                        <h:outputText value="#{source.code}"/>
+                    </p:column>
+                    <p:column headerText="description">
+                        <h:outputText value="#{source.description}"/>
+                    </p:column>
+                    <p:column headerText="create date">
+                        <h:outputText value="#{source.createDate}"/>
+                    </p:column>
+                    <p:column headerText="control" width="60">
+                        <p:commandButton icon="ui-icon-trash"
+                                         title="Delete Source"
+                                         actionListener="#{dtSource.delete(account)}"
+                                         ajax="true"
+                                         update="tab"
+                        />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center" minSize="200" size="200">
+            <h:form id="formAccountS">
+                <h:panelGrid columns="1" cellpadding="5">
+                    <h:commandButton value="Add Account" type="button" onclick="PF('dlgAddAccount').show()"/>
+
+                </h:panelGrid>
+                <p:dataTable id="tableAccountS" var="account"
+                             value="#{dtSource.accounts}">
+
+                    <p:column headerText="login" width="100">
+                        <h:outputText value="#{account.login}"/>
+                    </p:column>
+                    <p:column headerText="description">
+                        <h:outputText value="#{account.description}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="south" size ="200">
+            <h:form id="formTechnologyS">
+            <h:panelGrid columns="1" cellpadding="5">
+                <h:commandButton value="Add Technology" type="button" onclick="PF('dlgAddTechnology').show()"/>
+
+            </h:panelGrid>
+            <p:dataTable id="tableTechnologyS" var="tech"
+                         value="#{dtSource.technologies}" >
+
+                <p:column headerText="name" width="100">
+                    <h:outputText value="#{tech.name}"/>
+                </p:column>
+                <p:column headerText="description">
+                    <h:outputText value="#{tech.description}"/>
+                </p:column>
+
+            </p:dataTable>
+            </h:form>
+        </p:layoutUnit>
+    </p:layout>
+</h:body>
+</html>

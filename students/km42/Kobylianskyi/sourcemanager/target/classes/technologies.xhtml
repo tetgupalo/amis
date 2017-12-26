@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:body>
+    <h:form id="formTechnology">
+        <h:panelGrid columns="1" cellpadding="5">
+            <h:commandButton value="Create Technology" type="button" onclick="PF('dlgCreateTechnology').show()"/>
+
+        </h:panelGrid>
+        <p:dataTable id="tableTechnology" var="tech"
+                     value="#{dtTechnology.technologies}" selectionMode="single"
+                     selection="#{dtTechnology.selectedTechnology}"
+                     rowKey="#{tech.name}">
+
+            <p:column headerText="name" width="100">
+                <h:outputText value="#{tech.name}"/>
+            </p:column>
+            <p:column headerText="description">
+                <h:outputText value="#{tech.description}"/>
+            </p:column>
+
+        </p:dataTable>
+    </h:form>
+
+</h:body>
+</html>

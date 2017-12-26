@@ -1,0 +1,35 @@
+body{
+    /* Safari 4-5, Chrome 1-9 */
+    background-image: url("../img/bg.jpg");
+
+
+}
+
+.centered-form{
+    margin-top: 60px;
+}
+
+.centered-form .panel{
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+
+label.label-floatlabel {
+    font-weight: bold;
+    color: #dc98ba;
+    font-size: 11px;
+}
+.role{
+    padding-left: 130px;
+}
+.choserole{
+    padding-left: 120px;
+}
+.panel-title{
+    padding-left: 100px;
+}
+.btn-info{
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #6c757d;
+}

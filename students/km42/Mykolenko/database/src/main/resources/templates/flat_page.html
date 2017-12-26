@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"
+          href="../public/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" th:href="@{/css/flat_page.css}"
+          href="../public/css/flat_page.css"/>
+
+</head>
+<body>
+<div>
+    <!--/*@thymesVar id="flat" type="com.mikolenko.oksana.database.persistense.entry.FlatEntry"*/-->
+</div>
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="#">
+        <img class="logo" th:src="@{/img/logo.jpg}"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="/logout">Log out</a>
+
+            <a class="nav-item nav-link disabled" href="#">My page</a>
+        </div>
+    </div>
+</nav>
+<div class="content">
+<div class="row container">
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-6">
+                <!--/*@thymesVar id="url" type="java.lang.String"*/-->
+                <img class="image" th:src="${url}"/>
+            </div>
+
+            <div class="col-4 text-info text-left">
+                <h2>DESCRIPTION</h2>
+                <!--/*@thymesVar id="flat" type="com.mikolenko.oksana.database.persistense.entry.FlatEntry"*/-->
+                <div th:text="${flat.flatDescription}">...</div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-4 text-info text-left" >
+                <h2>PRICE ($): </h2>
+            <!--/*@thymesVar id="flat" type="com.mikolenko.oksana.database.persistense.entry.FlatEntry"*/-->
+            <div th:text="${flat.flatPrice}">...</div>
+            </div>
+        </div>
+    </div>
+    <!--<form method="POST" action="/upload" enctype="multipart/form-data">-->
+    <!--<input type="file" name="file"/><br/><br/>-->
+    <!--<input type="submit" value="Submit"/>-->
+    <!--</form>-->
+
+    <div class="col-12">
+        <table class="table table-hover table-dark">
+            <thead>
+            <tr>
+
+
+                <th scope="col">Status</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">Finish Date</th>
+                <th scope="col">Flat Address</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="bookingArray" type="com.mikolenko.oksana.database.persistense.entry.BookingEntry"*/-->
+            <th:block th:each="booking : ${bookingArray}">
+                <tr>
+                    <!--/*@thymesVar id="booking" type="com.mikolenko.oksana.database.persistense.entry.BookingEntry"*/-->
+
+                    <!-- IF CUSTOMER IS ANONYMOUS -->
+                    <td th:if="${booking.status}">
+                        <div>Free</div>
+                    </td>
+                    <!-- ELSE -->
+                    <td th:unless="${booking.status}">
+
+                    </td>
+                    <td th:text="${booking.startDate}">...</td>
+                    <td th:text="${booking.finishDate}">...</td>
+                    <td th:text="${booking.flatAddressFk}">...</td>
+                    <td>
+
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</body>
+</html>

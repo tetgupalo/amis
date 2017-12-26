@@ -9,3 +9,5 @@ To run tests:
 ```
 PYTHONPATH="$(pwd)" pytest ./tests/test_dao.py 
 ```
+
+#### Collected everything inside create.sql
